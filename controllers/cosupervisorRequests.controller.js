@@ -12,8 +12,7 @@ const createCoSupervisorRequest = async (req, res) => {
         email,
         coSupervisor,
         researchTopic,
-        researchField,
-        panelNo
+        researchField
     })
 
     try {
@@ -28,6 +27,7 @@ const createCoSupervisorRequest = async (req, res) => {
     }
 
 }
+
 
 module.exports = {
     createCoSupervisorRequest

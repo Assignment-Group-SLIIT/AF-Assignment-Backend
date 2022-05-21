@@ -32,6 +32,20 @@ const createGroup = async (req, res) => {
 
 }
 
+const getAllGroup = async(req , res) => {
+    try {
+        let response = await Group.find();
+        if(response){
+            return res.status(200).send({message:"get all registered group" , data:response})
+        }else{
+            return res.status(500).send({message:"Internal server error"})
+        }
+    }catch(error){
+        return res.status(400).send({message:"error while getting all group"})
+    }
+}
+
 module.exports = {
-    createGroup
+    createGroup,
+    getAllGroup
 }

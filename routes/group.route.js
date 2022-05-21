@@ -5,5 +5,6 @@ let groupController = require('../controllers/group.controller');
 
 
 router.post('/',groupController.createGroup)
+router.get('/',groupController.getAllGroup)
 
 module.exports = router;
