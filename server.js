@@ -31,3 +31,7 @@ connection.once("open", () => {
 //template route
 let templates = require('./routes/template.route')
 app.use('/api/v1/templates', templates)
+
+//group route
+let group = require('./routes/group.route');
+app.use('/api/v1/groups', group)
