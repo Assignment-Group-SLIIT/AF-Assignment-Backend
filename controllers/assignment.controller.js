@@ -1,10 +1,10 @@
-const nanoid = 'nanoid';
 const Assignment = require('../models/assignment.model');
 
 
 const createAssignment = async (req, res) => {
 
     const {
+        groupId,
         submissionId,
         submissionType,
         document,
@@ -13,7 +13,7 @@ const createAssignment = async (req, res) => {
     } = req.body;
 
     const newAssignment = new Assignment({
-        groupId: nanoid(4),
+        groupId,
         submissionId,
         submissionType,
         document,
