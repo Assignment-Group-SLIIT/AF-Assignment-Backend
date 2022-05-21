@@ -31,3 +31,7 @@ connection.once("open", () => {
 //template route
 let templates = require('./routes/template.route')
 app.use('/api/v1/templates', templates)
+
+//projectpropsal route
+let projectpropsals = require('./routes/projectpropsal.route')
+app.use('/api/v1/projectpropsals', projectpropsals)
