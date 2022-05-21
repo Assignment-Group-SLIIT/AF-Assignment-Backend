@@ -1,13 +1,15 @@
+import { nanoid } from 'nanoid'
 const Template = require('../models/template.model');
 
 const createTemplate = async (req, res) => {
 
-    const submissionId = req.body.id;
-    const submissionType = req.body.type;
-    const template = req.body.file;
+    const {
+        submissionType,
+        template
+    } = req.body;
 
     const newTemplate = new Template({
-        submissionId,
+        submissionId: nanoid(4),
         submissionType,
         template
     })
@@ -44,6 +46,7 @@ const updateTemplate = async (req, res) => {
     } = req.body;
 
     const templatePayload = {
+        submissionId: Id,
         submissionType,
         template,
     }

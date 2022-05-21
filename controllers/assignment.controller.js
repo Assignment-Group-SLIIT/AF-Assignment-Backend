@@ -1,4 +1,6 @@
+import { nanoid } from 'nanoid'
 const Assignment = require('../models/assignment.model');
+
 
 const createAssignment = async (req, res) => {
 
@@ -11,7 +13,7 @@ const createAssignment = async (req, res) => {
     } = req.body;
 
     const newAssignment = new Assignment({
-        groupId,
+        groupId: nanoid(4),
         submissionId,
         submissionType,
         document,
