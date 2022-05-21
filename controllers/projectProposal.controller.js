@@ -43,6 +43,7 @@ const getAllProjectProposal = async (req, res) => {
 
 const updateProjectProposal = async (req, res) => {
     const Id = req.params.id;
+    // const Id = req.query.id;
     // console.log("ProjectProposal id>>", Id,);
 
     const {
@@ -78,7 +79,7 @@ const deleteProjectProposal = async (req, res) => {
 
     if (Id) {
         try {
-            await newProjectProposal.findOneAndDelete({ groupId: Id })
+            await ProjectProposal.findOneAndDelete({ groupId: Id })
             return res.status(200).send({ status: "ProjectProposal deleted successfully" });
         } catch {
             return res.status(500).send({ message: "Internal Server Error" });
