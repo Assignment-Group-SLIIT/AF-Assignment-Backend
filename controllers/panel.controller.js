@@ -76,7 +76,7 @@ const updatePanel = async (req, res) => {
 
         let response = await Panel.findOneAndUpdate({ panelId: id }, updatePanelData);
         if (response) {
-            return res.status(200).send({ status: "submission updated successfully" });
+            return res.status(200).send({ status: " updated successfully" });
         } else {
             return res.status(500).send({ message: 'Internal server error' });
         }
@@ -85,5 +85,20 @@ const updatePanel = async (req, res) => {
     }
 }
 
+const deletepanel = async (req, res) => {
+    const Id = req.query.id;
+    // console.log("template id>>", Id,);
 
-module.exports = { addPanel, getAllPanels }
+    if (Id) {
+        try {
+            await Panel.findOneAndDelete({ panelId: Id });
+            return res.status(200).send({ status: " deleted successfully" });
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" });
+        }
+    }
+    return res.status(400).send({ message: "Invalid Request" });
+}
+
+
+module.exports = { addPanel, getAllPanels, updatePanel, deletepanel }
