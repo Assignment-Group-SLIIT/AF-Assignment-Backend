@@ -63,9 +63,33 @@ const getAllRequests = async (req, res) => {
     }
 }
 
+const updateSupervisorRequest = async (req, res) => {
+
+    const updateSupervisorRequest = {
+        groupId: req.body.groupId,
+        email: req.body.email,
+        researchTopic: req.body.researchTopic,
+        researchField: req.body.researchField,
+        supervisor: req.body.supervisor
+    }
+
+    try {
+        const response = await SupervisorRequestList.findOneAndUpdate({ groupId: groupId }, updateSupervisorRequest)
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated Supervisor request' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(400).send({ message: 'Unable to update' })
+    }
+
+}
+
 
 module.exports = {
     createSupervisorRequest,
     getAllRequestsofSupervisor,
-    getAllRequests
+    getAllRequests,
+    updateSupervisorRequest
 }
