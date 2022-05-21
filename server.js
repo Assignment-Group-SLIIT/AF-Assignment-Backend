@@ -52,6 +52,13 @@ app.use(errors.errorHandler);
 let supervisors = require('./routes/supervisorRequests.route')
 app.use('/api/v1/supervisors', supervisors);
 
+//projectpropsal route
+let projectproposals = require('./routes/projectProposal.route')
+app.use('/api/v1/projectproposals', projectproposals)
+
+//assignment route
+let assignments = require('./routes/assignment.route')
+app.use('/api/v1/assignments', assignments)
 //group route
 let groups = require('./routes/group.route');
 app.use('/api/v1/groups', groups)
