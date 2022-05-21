@@ -44,11 +44,28 @@ const getAllRequestsofSupervisor = async (req, res) => {
             return res.status(500).send({ message: 'Internal server error' });
         }
     } catch (err) {
-        return res.status(400).send({ message: 'Error on retrieving users' })
+        return res.status(400).send({ message: 'Error on retrieving request list of supervisors' })
     }
 }
 
+const getAllRequests = async (req, res) => {
+
+    try {
+
+        let supervisorRequests = await SupervisorRequestList.find();
+        if (supervisorRequests) {
+            return res.json(supervisorRequests)
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(404).send({ message: 'Error on retrieving request list of supervisors' })
+    }
+}
+
+
 module.exports = {
     createSupervisorRequest,
-    getAllRequestsofSupervisor
+    getAllRequestsofSupervisor,
+    getAllRequests
 }
