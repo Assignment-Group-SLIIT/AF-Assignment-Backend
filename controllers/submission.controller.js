@@ -44,19 +44,20 @@ const getAllSubmissions = async (req, res) => {
 }
 
 const updateSubmission = async (req, res) => {
+    console.log("req??", req.query.id)
     const id = req.query.id;
 
     if (!id) {
         return res.status(400).send({ message: "Invalid Request" });
     }
     const {
-        submissionId,
         submissionType,
         startDate,
         endDate,
         markingSchema
     } = req.body;
-    let udpdateSubmission = {
+
+    let udpdateSubmissionData = {
         submissionId: id,
         submissionType,
         startDate,
@@ -66,7 +67,7 @@ const updateSubmission = async (req, res) => {
 
     try {
 
-        let response = await Submission.findOneAndDelete({ submissionId: id });
+        let response = await Submission.findOneAndUpdate({ submissionId: id }, udpdateSubmissionData);
         if (response) {
             return res.status(200).send({ status: "submission updated successfully" });
         } else {
