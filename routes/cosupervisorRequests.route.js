@@ -6,5 +6,7 @@ let coSupervisorRequest = require('../controllers/cosupervisorRequests.controlle
 router.post('/' , coSupervisorRequest.createCoSupervisorRequest)
 router.get('/' , coSupervisorRequest.getAllRequestTopic)
 router.get('/:id',coSupervisorRequest.getAllRequestsofCoSupervisor)
+router.put('/:id',coSupervisorRequest.updateCoSupervisorRequest)
+// router.put('/:id',coSupervisorRequest.deleteCoSupervisorRequest)
 
 module.exports = router;

@@ -255,26 +255,63 @@ var updateCoSupervisorRequest = function updateCoSupervisorRequest(req, res) {
       }
     }
   }, null, null, [[2, 13]]);
-}; // const deleteCoSupervisorRequest = async (req, res) => {
-//     const groupId = req.params.id;
-//     try {
-//         const response = await Group.findOneAndDelete({ groupId: groupId });
-//         if (response) {
-//             return res.status(204).send({ message: 'Successfully deleted a Request' });
-//         } else {
-//             return res.status(500).send({ message: 'Internal server error' });
-//         }
-//     } catch (err) {
-//         return res.status(400).send({ message: 'Could not delete the request' })
-//     }
-// }
+};
 
+var deleteCoSupervisorRequest = function deleteCoSupervisorRequest(req, res) {
+  var groupId, response;
+  return regeneratorRuntime.async(function deleteCoSupervisorRequest$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          groupId = req.params.id;
+          _context6.prev = 1;
+          _context6.next = 4;
+          return regeneratorRuntime.awrap(Group.findOneAndDelete({
+            groupId: groupId
+          }));
+
+        case 4:
+          response = _context6.sent;
+
+          if (!response) {
+            _context6.next = 9;
+            break;
+          }
+
+          return _context6.abrupt("return", res.status(204).send({
+            message: 'Successfully deleted a Request'
+          }));
+
+        case 9:
+          return _context6.abrupt("return", res.status(500).send({
+            message: 'Internal server error'
+          }));
+
+        case 10:
+          _context6.next = 15;
+          break;
+
+        case 12:
+          _context6.prev = 12;
+          _context6.t0 = _context6["catch"](1);
+          return _context6.abrupt("return", res.status(400).send({
+            message: 'Could not delete the request'
+          }));
+
+        case 15:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  }, null, null, [[1, 12]]);
+};
 
 module.exports = {
   createCoSupervisorRequest: createCoSupervisorRequest,
   getAllRequestTopic: getAllRequestTopic,
   getAllRequestsofCoSupervisor: getAllRequestsofCoSupervisor,
   getOneRequest: getOneRequest,
-  updateCoSupervisorRequest: updateCoSupervisorRequest
+  updateCoSupervisorRequest: updateCoSupervisorRequest,
+  deleteCoSupervisorRequest: deleteCoSupervisorRequest
 };
 //# sourceMappingURL=cosupervisorRequests.controller.dev.js.map
