@@ -75,30 +75,30 @@ const getOneRequest = async (req, res) => {
     }
 }
 
-// const updateCoSupervisorRequest = async (req, res) => {
+const updateCoSupervisorRequest = async (req, res) => {
 
-//     const groupId = req.params.id;
+    const groupId = req.params.id;
 
-//     const updateCoSupervisorRequest = {
-//          groupId  :req.body.groupId,
-//          email : req.body.email,
-//          researchTopic : req.body.researchTopic,
-//          researchField : req.body.researchField,
-//          coSupervisor : req.body.coSupervisor
-//     }
+    const updateCoSupervisorRequest = {
+         groupId  :req.body.groupId,
+         email : req.body.email,
+         researchTopic : req.body.researchTopic,
+         researchField : req.body.researchField,
+         coSupervisor : req.body.coSupervisor
+    }
 
-//     try {
-//         const response = await CoSupervisorRequest.findOneAndUpdate({ groupId: groupId }, updateCoSupervisorRequest)
-//         if (response) {
-//             return res.status(200).send({ message: 'Successfully updated Supervisor request' });
-//         } else {
-//             return res.status(500).send({ message: 'Internal server error' });
-//         }
-//     } catch (err) {
-//         return res.status(400).send({ message: 'Unable to update' })
-//     }
+    try {
+        const response = await CoSupervisorRequest.findOneAndUpdate({ groupId: groupId }, updateCoSupervisorRequest)
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated Supervisor request' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(400).send({ message: 'Unable to update' })
+    }
 
-// }
+}
 
 // const deleteCoSupervisorRequest = async (req, res) => {
 //     const groupId = req.params.id;
@@ -121,5 +121,6 @@ module.exports = {
     createCoSupervisorRequest,
     getAllRequestTopic,
     getAllRequestsofCoSupervisor,
-    getOneRequest
+    getOneRequest,
+    updateCoSupervisorRequest
 }
