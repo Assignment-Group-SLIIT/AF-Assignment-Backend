@@ -47,3 +47,7 @@ app.use('/api/v1/templates', templates)
 let users = require('./routes/user.route')
 app.use('/api/v1/users', users);
 app.use(errors.errorHandler);
+
+//supervisor-requests route
+let supervisors = require('./routes/supervisorRequests.route')
+app.use('/api/v1/supervisors', supervisors);
