@@ -77,11 +77,12 @@ const deleteProjectProposal = async (req, res) => {
     // console.log("ProjectProposal id>>", Id,);
 
     if (Id) {
-        await newProjectProposal.findOneAndDelete({ groupId: Id }).then(() => {
+        try {
+            await newProjectProposal.findOneAndDelete({ groupId: Id })
             return res.status(200).send({ status: "ProjectProposal deleted successfully" });
-        }).catch((err) => {
+        } catch {
             return res.status(500).send({ message: "Internal Server Error" });
-        })
+        }
     }
     return res.status(400).send({ message: "Invalid Request" });
 }
