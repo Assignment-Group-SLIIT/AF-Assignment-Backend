@@ -105,8 +105,10 @@ const deleteCoSupervisorRequest = async (req, res) => {
 
     try {
         const response = await Group.findOneAndDelete({ groupId: groupId });
+        
         if (response) {
             return res.status(204).send({ message: 'Successfully deleted a Request' });
+            
         } else {
             return res.status(500).send({ message: 'Internal server error' });
         }
