@@ -4,7 +4,8 @@ const createSupervisorRequest = async (req, res) => {
 
     const groupId = req.body.groupId;
     const email = req.body.email;
-    const researchTopic = req.body.researchField;
+    const researchTopic = req.body.researchTopic;
+    const researchField = req.body.researchField;
     const supervisor = req.body.supervisor;
 
 
@@ -12,6 +13,7 @@ const createSupervisorRequest = async (req, res) => {
         groupId,
         email,
         researchTopic,
+        researchField,
         supervisor
     })
 
