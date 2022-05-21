@@ -54,13 +54,10 @@ const updateTemplate = async (req, res) => {
 
     if (Id) {
         try {
-            await Template.findOneAndUpdate({ submissionId: Id }, templatePayload).then(() => {
-                return res.status(200).send({ status: "Template Successfully updated!" });
-            }).catch((err) => {
-                return res.status(500).send({ status: "Internal Server Error" });
-            })
+            await Template.findOneAndUpdate({ submissionId: Id }, templatePayload);
+            return res.status(200).send({ status: "Template Successfully updated!" });
         } catch (e) {
-            console.log('error!', e.message)
+            return res.status(500).send({ status: "Internal Server Error" });
         }
     }
     return res.status(400).send({ status: "Invalid Request" });
