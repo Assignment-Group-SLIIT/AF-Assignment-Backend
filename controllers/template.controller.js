@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid'
 const Template = require('../models/template.model');
+const nanoid = 'nanoid';
 
 const createTemplate = async (req, res) => {
 

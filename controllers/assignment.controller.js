@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid'
+const nanoid = 'nanoid';
 const Assignment = require('../models/assignment.model');
 
 

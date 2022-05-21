@@ -7,7 +7,7 @@ const assignmentSchema = new Schema({
     submissionType: { type: String, required: true },
     document: { type: String, required: true },
     evaluationStatus: { type: String, required: true },
-    marks: { type: Double, required: true }
+    marks: { type: Number, required: true }
 })
 
 const Assignment = mongoose.model('Assignment', assignmentSchema);
