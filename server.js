@@ -33,9 +33,10 @@ let templates = require('./routes/template.route')
 app.use('/api/v1/templates', templates)
 
 //group route
-let group = require('./routes/group.route');
-app.use('/api/v1/groups', group)
+let groups = require('./routes/group.route');
+app.use('/api/v1/groups', groups)
 
 //co supervisor request topic route
-let coSupervisorRequestTopic = require('./routes/cosupervisorRequests.route');
-app.use('/api/v1/requestTopic', coSupervisorRequestTopic)
+let coSupervisorRequestTopics = require('./routes/cosupervisorRequests.route');
+app.use('/api/v1/requestTopicsCoSupervisors', coSupervisorRequestTopics)
+

@@ -28,7 +28,21 @@ const createCoSupervisorRequest = async (req, res) => {
 
 }
 
+const getAllRequestTopic = async(req , res) => {
+    try {
+        let response = await CoSupervisorRequest.find();
+        if(response){
+            return res.status(200).send({message:"get all request topic" , data:response})
+        }else{
+            return res.status(500).send({message:"Internal server error"})
+        }
+    }catch(error){
+        return res.status(400).send({message:"error while getting request topic"})
+    }
+}
+
 
 module.exports = {
-    createCoSupervisorRequest
+    createCoSupervisorRequest,
+    getAllRequestTopic
 }

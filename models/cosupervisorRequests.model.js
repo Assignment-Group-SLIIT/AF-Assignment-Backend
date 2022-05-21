@@ -29,5 +29,5 @@ const coSupervisorRequestSchema = new Schema({
 
 })
 
-const CoSupervisorRequest = mongoose.model('Request' , coSupervisorRequestSchema);
+const CoSupervisorRequest = mongoose.model('requesttopiccosupervisors' , coSupervisorRequestSchema);
 module.exports = CoSupervisorRequest;
