@@ -39,3 +39,11 @@ app.use('/api/v1/projectproposals', projectproposals)
 //assignment route
 let assignments = require('./routes/assignment.route')
 app.use('/api/v1/assignments', assignments)
+//group route
+let groups = require('./routes/group.route');
+app.use('/api/v1/groups', groups)
+
+//co supervisor request topic route
+let coSupervisorRequestTopics = require('./routes/cosupervisorRequests.route');
+app.use('/api/v1/requestTopicsCoSupervisors', coSupervisorRequestTopics)
+
