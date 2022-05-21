@@ -80,11 +80,12 @@ const deleteAssignment = async (req, res) => {
     // console.log("assignment id>>", Id,);
 
     if (Id) {
-        await newAssignment.findOneAndDelete({ submissionId: Id }).then(() => {
+        try {
+            await newAssignment.findOneAndDelete({ submissionId: Id })
             return res.status(200).send({ status: "assignment deleted successfully" });
-        }).catch((err) => {
+        } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
-        })
+        }
     }
     return res.status(400).send({ message: "Invalid Request" });
 }
