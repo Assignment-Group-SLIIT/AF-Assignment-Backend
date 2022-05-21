@@ -1,6 +1,5 @@
 const Assignment = require('../models/assignment.model');
 
-
 const createAssignment = async (req, res) => {
 
     const {
@@ -36,7 +35,7 @@ const createAssignment = async (req, res) => {
 
 const getAllAssignment = async (req, res) => {
     try {
-        const response = await newAssignment.find();
+        const response = await Assignment.find();
         return res.status(200).send({ data: response });
     } catch (error) {
         return res.status(500).send({ message: 'Internal server error' });
@@ -66,11 +65,12 @@ const updateAssignment = async (req, res) => {
     }
 
     if (Id) {
-        await assignmentPayload.findOneAndUpdate({ submissionId: Id }, newAssignment).then(() => {
+        try {
+            await Assignment.findOneAndUpdate({ submissionId: Id }, assignmentPayload)
             return res.status(200).send({ status: "assignment Successfully updated!" });
-        }).catch((err) => {
+        } catch (err) {
             return res.status(500).send({ status: "Internal Server Error" });
-        })
+        }
     }
     return res.status(400).send({ status: "Invalid Request" });
 }
