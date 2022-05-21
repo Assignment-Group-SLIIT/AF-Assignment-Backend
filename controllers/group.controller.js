@@ -46,8 +46,8 @@ const getAllGroup = async(req , res) => {
 }
 
 const removeGroup = async (req,res) => {
-    const gid = req.params.groupId;
-
+    let gid = req.params.groupId;
+    console.log(gid)
     await Group.findOneAndDelete({ id: gid})
         .then(() => {
            return res.status(200).send({ status: "student group deleted" });
@@ -56,10 +56,28 @@ const removeGroup = async (req,res) => {
         })
 }
 
+const getOneGroup = async (req , res) => {
+    let gid = req.params.groupId;
+    console.log(gid)
+    const group = await Group.findOne({ id: gid })
+    .then((group) => {
+        if (group == null) {
+            res.status(200).send({ status: "No group Record Retrieved" })
+        }
+        else {
+            res.status(200).send({ status: "group Record Retrieved", group: group })
+        }
+    }).catch(() => {
+        console.log(err.message);
+        res.status(500).send({ status: "Server error", error: err.message });
+    })
+}
+
 
 
 module.exports = {
     createGroup,
     getAllGroup,
-    removeGroup
+    removeGroup,
+    getOneGroup
 }
