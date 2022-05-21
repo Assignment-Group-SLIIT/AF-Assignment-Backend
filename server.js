@@ -51,3 +51,12 @@ app.use(errors.errorHandler);
 //supervisor-requests route
 let supervisors = require('./routes/supervisorRequests.route')
 app.use('/api/v1/supervisors', supervisors);
+
+//group route
+let groups = require('./routes/group.route');
+app.use('/api/v1/groups', groups)
+
+//co supervisor request topic route
+let coSupervisorRequestTopics = require('./routes/cosupervisorRequests.route');
+app.use('/api/v1/requestTopicsCoSupervisors', coSupervisorRequestTopics)
+

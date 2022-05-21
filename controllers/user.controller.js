@@ -65,7 +65,7 @@ const login = async (req, res) => {
                 return res.status(400).send({ message: 'Such user does not exist check your credentials' })
             }
         } else {
-            return res.status(500).send({ message: 'Internal server error' });
+            return res.status(404).send({ message: 'Such user does not exist' });
         }
     } catch (err) {
         return res.status(400).send({ message: 'Such user does not exist check your credentials' })
@@ -81,10 +81,10 @@ const getAllUsers = async (req, res) => {
         if (users) {
             return res.json(users)
         } else {
-            return res.status(500).send({ message: 'Internal server error' });
+            return res.status(404).send({ message: 'Error on retrieving users' });
         }
     } catch (err) {
-        return res.status(404).send({ message: 'Error on retrieving users' })
+        return res.status(500).send({ message: 'Internal server error' })
     }
 }
 
