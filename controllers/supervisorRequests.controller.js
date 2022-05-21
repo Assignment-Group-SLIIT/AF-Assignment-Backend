@@ -63,6 +63,22 @@ const getAllRequests = async (req, res) => {
     }
 }
 
+const getOneRequest = async (req, res) => {
+
+    const groupId = req.params.id;
+
+    try {
+        let supervisorRequest = await SupervisorRequestList.findOne({ groupId: groupId });
+        if (supervisorRequest) {
+            return res.json(supervisorRequest)
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(404).send({ message: 'Error on retrieving request' })
+    }
+}
+
 const updateSupervisorRequest = async (req, res) => {
 
     const groupId = req.params.id;
@@ -109,6 +125,7 @@ module.exports = {
     createSupervisorRequest,
     getAllRequestsofSupervisor,
     getAllRequests,
+    getOneRequest,
     updateSupervisorRequest,
     deleteSupervisorRequest
 }

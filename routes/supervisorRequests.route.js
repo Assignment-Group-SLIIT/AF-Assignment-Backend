@@ -5,6 +5,7 @@ let supervisorRequestsController = require('../controllers/supervisorRequests.co
 
 router.post('/', supervisorRequestsController.createSupervisorRequest);
 router.get('/', supervisorRequestsController.getAllRequests);
+router.get('/:id', supervisorRequestsController.getOneRequest);
 router.get('/:name', supervisorRequestsController.getAllRequestsofSupervisor);
 router.put('/:id', supervisorRequestsController.updateSupervisorRequest);
 router.delete('/:id', supervisorRequestsController.deleteSupervisorRequest);
