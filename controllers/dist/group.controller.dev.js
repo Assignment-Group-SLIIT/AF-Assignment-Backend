@@ -112,27 +112,40 @@ var getAllGroup = function getAllGroup(req, res) {
 };
 
 var removeGroup = function removeGroup(req, res) {
-  var gid;
+  var gid, response;
   return regeneratorRuntime.async(function removeGroup$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          gid = req.params.groupId;
-          console.log(gid);
+          gid = req.params.id;
+
+          if (!gid) {
+            _context3.next = 5;
+            break;
+          }
+
           _context3.next = 4;
           return regeneratorRuntime.awrap(Group.findOneAndDelete({
             id: gid
           }).then(function () {
             return res.status(200).send({
-              status: "student group deleted"
+              status: "Group deleted successfully"
             });
           })["catch"](function (err) {
             return res.status(500).send({
-              status: "Error with deleting group record"
+              message: "Internal Server Error"
             });
           }));
 
         case 4:
+          response = _context3.sent;
+
+        case 5:
+          return _context3.abrupt("return", res.status(400).send({
+            message: "Invalid Request"
+          }));
+
+        case 6:
         case "end":
           return _context3.stop();
       }
@@ -141,39 +154,40 @@ var removeGroup = function removeGroup(req, res) {
 };
 
 var getOneGroup = function getOneGroup(req, res) {
-  var gid, group;
+  var gid, response;
   return regeneratorRuntime.async(function getOneGroup$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          gid = req.params.groupId;
-          console.log(gid);
+          gid = req.params.id;
+
+          if (!gid) {
+            _context4.next = 5;
+            break;
+          }
+
           _context4.next = 4;
           return regeneratorRuntime.awrap(Group.findOne({
             id: gid
-          }).then(function (group) {
-            if (group == null) {
-              res.status(200).send({
-                status: "No group Record Retrieved"
-              });
-            } else {
-              res.status(200).send({
-                status: "group Record Retrieved",
-                group: group
-              });
-            }
-          })["catch"](function () {
-            console.log(err.message);
-            res.status(500).send({
-              status: "Server error",
-              error: err.message
+          }).then(function () {
+            return res.status(200).send({
+              status: "Successfully retrieve group"
+            });
+          })["catch"](function (err) {
+            return res.status(500).send({
+              message: "Internal Server Error"
             });
           }));
 
         case 4:
-          group = _context4.sent;
+          response = _context4.sent;
 
         case 5:
+          return _context4.abrupt("return", res.status(400).send({
+            message: "Invalid Request"
+          }));
+
+        case 6:
         case "end":
           return _context4.stop();
       }
