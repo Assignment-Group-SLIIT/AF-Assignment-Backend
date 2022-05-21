@@ -1,5 +1,6 @@
 const CoSupervisorRequest = require('../models/cosupervisorRequests.model');
 
+//create co-supervisor request
 const createCoSupervisorRequest = async (req, res) => {
     const groupId = req.body.groupId;
     const email = req.body.email;
@@ -28,6 +29,7 @@ const createCoSupervisorRequest = async (req, res) => {
 
 }
 
+//get all request topic
 const getAllRequestTopic = async (req, res) => {
     try {
         let response = await CoSupervisorRequest.find();
@@ -41,6 +43,7 @@ const getAllRequestTopic = async (req, res) => {
     }
 }
 
+//get all co-supervisor request by name
 const getAllRequestsofCoSupervisor = async (req, res) => {
 
     const cosupervisor = req.params.name;
@@ -58,7 +61,7 @@ const getAllRequestsofCoSupervisor = async (req, res) => {
     }
 }
 
-
+//get one request
 const getOneRequest = async (req, res) => {
 
     const groupId = req.params.id;
@@ -75,6 +78,7 @@ const getOneRequest = async (req, res) => {
     }
 }
 
+//update request 
 const updateCoSupervisorRequest = async (req, res) => {
 
     const groupId = req.params.id;
@@ -100,6 +104,7 @@ const updateCoSupervisorRequest = async (req, res) => {
 
 }
 
+//delete co suervisor request
 const deleteCoSupervisorRequest = async (req, res) => {
     const groupId = req.params.id;
 
