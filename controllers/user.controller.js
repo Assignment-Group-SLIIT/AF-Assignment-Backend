@@ -84,7 +84,7 @@ const getAllUsers = async (req, res) => {
             return res.status(500).send({ message: 'Internal server error' });
         }
     } catch (err) {
-        return res.status(400).send({ message: 'Error on retrieving users' })
+        return res.status(404).send({ message: 'Error on retrieving users' })
     }
 }
 
@@ -101,7 +101,7 @@ const getOneUser = async (req, res) => {
             return res.status(500).send({ message: 'Internal server error' });
         }
     } catch (err) {
-        return res.status(400).send({ message: 'Error on retrieving users' })
+        return res.status(404).send({ message: 'No such user found' })
     }
 }
 
@@ -132,7 +132,7 @@ const updateUserPassword = async (req, res) => {
             try {
                 const response = await User.findOneAndUpdate({ email: email }, newUser);
                 if (response) {
-                    return res.status(201).send({ message: 'Successfully updated Password' });
+                    return res.status(200).send({ message: 'Successfully updated Password' });
                 } else {
                     return res.status(500).send({ message: 'Internal server error' });
                 }
@@ -175,7 +175,7 @@ const updateUser = async (req, res) => {
     try {
         const response = await User.findOneAndUpdate({ email: email }, newUser);
         if (response) {
-            return res.status(201).send({ message: 'Successfully updated User Details' });
+            return res.status(200).send({ message: 'Successfully updated User Details' });
         } else {
             return res.status(500).send({ message: 'Internal server error' });
         }
@@ -198,7 +198,7 @@ const deleteUser = async (req, res) => {
         }
 
     } catch (err) {
-        return res.status(400).send({ message: 'Such user does not exists recheck the email' })
+        return res.status(404).send({ message: 'Such user does not exists recheck the email' })
     }
 
 }

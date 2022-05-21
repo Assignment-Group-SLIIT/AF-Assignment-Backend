@@ -44,7 +44,7 @@ const getAllRequestsofSupervisor = async (req, res) => {
             return res.status(500).send({ message: 'Internal server error' });
         }
     } catch (err) {
-        return res.status(400).send({ message: 'Error on retrieving request list of supervisors' })
+        return res.status(404).send({ message: 'Error on retrieving request list of supervisors' })
     }
 }
 
@@ -75,7 +75,7 @@ const getOneRequest = async (req, res) => {
             return res.status(500).send({ message: 'Internal server error' });
         }
     } catch (err) {
-        return res.status(404).send({ message: 'Error on retrieving request' })
+        return res.status(404).send({ message: 'No such request available' })
     }
 }
 
