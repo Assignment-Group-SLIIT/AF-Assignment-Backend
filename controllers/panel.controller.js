@@ -32,3 +32,18 @@ const addPanel = async (req, res) => {
         return res.status(400).send({ message: 'error while adding a submission' });
     }
 }
+
+const getAllPanels = async (req, res) => {
+    try {
+        let response = await Panel.find();
+        if (response) {
+            return res.json(response);
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
+module.exports = { addPanel }
