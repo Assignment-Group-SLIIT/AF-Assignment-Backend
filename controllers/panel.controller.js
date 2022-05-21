@@ -23,7 +23,7 @@ const addPanel = async (req, res) => {
     try {
         let response = await newPanel.save();
         if (response) {
-            return res.status(201).send({ message: 'new Panel Delete' });
+            return res.status(201).send({ message: 'new Panel Deleted sucessfully' });
         } else {
             return res.status(500).send({ message: 'Internal Server Error!!' });
         }
@@ -76,7 +76,7 @@ const updatePanel = async (req, res) => {
 
         let response = await Panel.findOneAndUpdate({ panelId: id }, updatePanelData);
         if (response) {
-            return res.status(200).send({ status: " updated successfully" });
+            return res.status(200).send({ status: " Panel updated successfully" });
         } else {
             return res.status(500).send({ message: 'Internal server error' });
         }
@@ -92,7 +92,7 @@ const deletepanel = async (req, res) => {
     if (Id) {
         try {
             await Panel.findOneAndDelete({ panelId: Id });
-            return res.status(200).send({ status: " deleted successfully" });
+            return res.status(200).send({ status: "panel deleted successfully" });
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
         }

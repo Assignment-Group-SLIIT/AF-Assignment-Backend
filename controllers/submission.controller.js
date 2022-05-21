@@ -85,7 +85,7 @@ const deleteSubmission = async (req, res) => {
     if (Id) {
         try {
             await Panel.findOneAndDelete({ submissionId: Id });
-            return res.status(200).send({ status: " deleted successfully" });
+            return res.status(200).send({ status: "submission deleted successfully" });
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
         }
