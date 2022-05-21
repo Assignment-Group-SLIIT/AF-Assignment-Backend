@@ -1,15 +1,15 @@
 const Template = require('../models/template.model');
-const nanoid = 'nanoid';
 
 const createTemplate = async (req, res) => {
 
     const {
+        submissionId,
         submissionType,
         template
     } = req.body;
 
     const newTemplate = new Template({
-        submissionId: nanoid(4),
+        submissionId,
         submissionType,
         template
     })
@@ -29,9 +29,10 @@ const createTemplate = async (req, res) => {
 
 const getAllTemplate = async (req, res) => {
     try {
-        const response = await newTemplate.find();
+        const response = await Template.find();
         return res.status(200).send({ data: response });
     } catch (error) {
+        console.log("error!>>", error.message)
         return res.status(500).send({ message: 'Internal server error' });
     }
 }
@@ -52,11 +53,15 @@ const updateTemplate = async (req, res) => {
     }
 
     if (Id) {
-        await templatePayload.findOneAndUpdate({ submissionId: Id }, newTemplate).then(() => {
-            return res.status(200).send({ status: "Template Successfully updated!" });
-        }).catch((err) => {
-            return res.status(500).send({ status: "Internal Server Error" });
-        })
+        try {
+            await Template.findOneAndUpdate({ submissionId: Id }, templatePayload).then(() => {
+                return res.status(200).send({ status: "Template Successfully updated!" });
+            }).catch((err) => {
+                return res.status(500).send({ status: "Internal Server Error" });
+            })
+        } catch (e) {
+            console.log('error!', e.message)
+        }
     }
     return res.status(400).send({ status: "Invalid Request" });
 }
@@ -66,7 +71,7 @@ const deleteTemplate = async (req, res) => {
     // console.log("template id>>", Id,);
 
     if (Id) {
-        const response = await newTemplate.findOneAndDelete({ submissionId: Id }).then(() => {
+        const response = await Template.findOneAndDelete({ submissionId: Id }).then(() => {
             return res.status(200).send({ status: "template deleted successfully" });
         }).catch((err) => {
             return res.status(500).send({ message: "Internal Server Error" });

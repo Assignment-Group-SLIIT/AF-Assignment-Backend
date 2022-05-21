@@ -1,10 +1,10 @@
-const nanoid = 'nanoid';
 const ProjectProposal = require('../models/projectProposal.model');
 
 
 const createProjectProposal = async (req, res) => {
 
     const {
+        groupId,
         leaderEmail,
         researchTopic,
         field,
@@ -12,7 +12,7 @@ const createProjectProposal = async (req, res) => {
     } = req.body;
 
     const newProjectProposal = new ProjectProposal({
-        groupId: nanoid(4),
+        groupId,
         leaderEmail,
         researchTopic,
         field,
