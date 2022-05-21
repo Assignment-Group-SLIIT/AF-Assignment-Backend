@@ -44,7 +44,7 @@ const getAllSubmissions = async (req, res) => {
 }
 
 const updateSubmission = async (req, res) => {
-    console.log("req??", req.query.id)
+
     const id = req.query.id;
 
     if (!id) {
@@ -81,16 +81,18 @@ const updateSubmission = async (req, res) => {
 const deleteSubmission = async (req, res) => {
     const Id = req.query.id;
     // console.log("template id>>", Id,);
-
-    if (Id) {
-        try {
-            await Panel.findOneAndDelete({ submissionId: Id });
-            return res.status(200).send({ status: "submission deleted successfully" });
-        } catch (err) {
-            return res.status(500).send({ message: "Internal Server Error" });
-        }
+    if (!Id) {
+        return res.status(400).send({ message: "Invalid Request" });
     }
-    return res.status(400).send({ message: "Invalid Request" });
+
+    try {
+        await Panel.findOneAndDelete({ submissionId: Id });
+        return res.status(200).send({ status: "submission deleted successfully" });
+    } catch (err) {
+        return res.status(500).send({ message: "Internal Server Error" });
+    }
+
+
 }
 
 

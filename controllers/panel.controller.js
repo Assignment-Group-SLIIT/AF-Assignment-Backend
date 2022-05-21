@@ -1,7 +1,6 @@
 const Panel = require('../models/panel.model');
 
 const addPanel = async (req, res) => {
-    console.log("reqqqq>>", req.body)
 
     const panelId = req.body.panelId;
     const panelNumber = req.body.panelNumber;
@@ -28,7 +27,6 @@ const addPanel = async (req, res) => {
             return res.status(500).send({ message: 'Internal Server Error!!' });
         }
     } catch (err) {
-        console.log("errr>>", err)
         return res.status(400).send({ message: 'error while adding a submission' });
     }
 }
@@ -88,16 +86,16 @@ const updatePanel = async (req, res) => {
 const deletepanel = async (req, res) => {
     const Id = req.query.id;
     // console.log("template id>>", Id,);
-
-    if (Id) {
-        try {
-            await Panel.findOneAndDelete({ panelId: Id });
-            return res.status(200).send({ status: "panel deleted successfully" });
-        } catch (err) {
-            return res.status(500).send({ message: "Internal Server Error" });
-        }
+    if (!Id) {
+        return res.status(400).send({ message: "Invalid Request" });
     }
-    return res.status(400).send({ message: "Invalid Request" });
+
+    try {
+        await Panel.findOneAndDelete({ panelId: Id });
+        return res.status(200).send({ status: "panel deleted successfully" });
+    } catch (err) {
+        return res.status(500).send({ message: "Internal Server Error" });
+    }
 }
 
 
