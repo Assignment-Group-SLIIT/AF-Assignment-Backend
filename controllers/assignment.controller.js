@@ -43,7 +43,7 @@ const getAllAssignment = async (req, res) => {
 }
 
 const updateAssignment = async (req, res) => {
-    const Id = req.params.id;
+    const Id = req.query.id;
     // console.log("assignment id>>", Id,);
 
     const {
@@ -76,7 +76,7 @@ const updateAssignment = async (req, res) => {
 }
 
 const deleteAssignment = async (req, res) => {
-    const Id = req.params.id;
+    const Id = req.query.id;
     // console.log("assignment id>>", Id,);
 
     if (Id) {
