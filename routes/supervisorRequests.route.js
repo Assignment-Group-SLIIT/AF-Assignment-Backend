@@ -7,6 +7,7 @@ router.post('/', supervisorRequestsController.createSupervisorRequest);
 router.get('/', supervisorRequestsController.getAllRequests);
 router.get('/:name', supervisorRequestsController.getAllRequestsofSupervisor);
 router.put('/:id', supervisorRequestsController.updateSupervisorRequest);
+router.delete('/:id', supervisorRequestsController.updateSupervisorRequest);
 
 
 module.exports = router;

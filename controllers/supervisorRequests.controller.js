@@ -88,10 +88,27 @@ const updateSupervisorRequest = async (req, res) => {
 
 }
 
+const deleteSupervisorRequest = async (req, res) => {
+    const groupId = req.params.id;
+
+    try {
+        const user = await SupervisorRequestList.findOneAndDelete({ groupId: groupId });
+        if (user) {
+            return res.status(204).send({ message: 'Successfully deleted A Request' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+
+    } catch (err) {
+        return res.status(400).send({ message: 'Could not delete the request' })
+    }
+
+}
 
 module.exports = {
     createSupervisorRequest,
     getAllRequestsofSupervisor,
     getAllRequests,
-    updateSupervisorRequest
+    updateSupervisorRequest,
+    deleteSupervisorRequest
 }
