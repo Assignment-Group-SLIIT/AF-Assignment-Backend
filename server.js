@@ -32,6 +32,13 @@ connection.once("open", () => {
 let templates = require('./routes/template.route')
 app.use('/api/v1/templates', templates)
 
+//projectpropsal route
+let projectproposals = require('./routes/projectProposal.route')
+app.use('/api/v1/projectproposals', projectproposals)
+
+//assignment route
+let assignments = require('./routes/assignment.route')
+app.use('/api/v1/assignments', assignments)
 //group route
 let groups = require('./routes/group.route');
 app.use('/api/v1/groups', groups)
