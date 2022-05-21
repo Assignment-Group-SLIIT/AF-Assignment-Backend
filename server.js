@@ -4,8 +4,8 @@ const cors = require("cors");
 require("dotenv").config();
 const app = express();
 const unless = require('express-unless')
-const auth = require('./helpers/jwt');
-const errors = require('./helpers/errorHandler')
+const auth = require('./middlewares/jwt');
+const errors = require('./middlewares/errorHandler')
 
 const port = process.env.PORT || 4000;
 const URL = process.env.URL;

@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { request } = require('express');
-const auth = require('../helpers/jwt')
+const auth = require('../middlewares/jwt')
 const User = require('../models/user.model')
 
 const register = async (req, res) => {
