@@ -46,30 +46,34 @@ const getAllGroup = async(req , res) => {
 }
 
 const removeGroup = async (req,res) => {
-    let gid = req.params.id;
-    if (gid) {
-        const response = await Group.findOneAndDelete({ id: gid }).then(() => {
-            return res.status(200).send({ status: "Group deleted successfully" });
-        }).catch((err) => {
-            return res.status(500).send({ message: "Internal Server Error" });
-        })
-    }
-    return res.status(400).send({ message: "Invalid Request" });
+    let groupId = req.params.id;
+    try {
+        const response = await Group.findOneAndDelete({ groupId: groupId });
+        if (response) {
+            return res.status(204).send({ message: 'Successfully deleted a Group' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
 
+    } catch (err) {
+        return res.status(400).send({ message: 'Could not delete the Group' })
+    }
 }
 
 const getOneGroup = async (req , res) => {
-    let gid = req.params.id;
-    if (gid) {
-        const response = await Group.findOne({ id: gid }).then(() => {
-            return res.status(200).send({ status: "Successfully retrieve group" });
-        }).catch((err) => {
-            return res.status(500).send({ message: "Internal Server Error" });
-        })
+    const groupId = req.params.id;
+    try {
+        let response = await Group.findOne({ groupId: groupId });
+        if (response) {
+            return res.json(response)
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(404).send({ message: 'No such request available' })
     }
-    return res.status(400).send({ message: "Invalid Request" });
-
 }
+
 
 module.exports = {
     createGroup,
