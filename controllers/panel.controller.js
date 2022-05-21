@@ -46,4 +46,44 @@ const getAllPanels = async (req, res) => {
     }
 }
 
-module.exports = { addPanel }
+const updatePanel = async (req, res) => {
+    console.log("req??", req.query.id)
+    const id = req.query.id;
+
+    if (!id) {
+        return res.status(400).send({ message: "Invalid Request" });
+    }
+    const {
+        panelNumber,
+        member1,
+        member2,
+        member3,
+        member4,
+        FieldOfInterest
+    } = req.body;
+
+    let updatePanelData = {
+        panelId: id,
+        panelNumber,
+        member1,
+        member2,
+        member3,
+        member4,
+        FieldOfInterest
+    }
+
+    try {
+
+        let response = await Panel.findOneAndUpdate({ panelId: id }, updatePanelData);
+        if (response) {
+            return res.status(200).send({ status: "submission updated successfully" });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
+
+module.exports = { addPanel, getAllPanels }
