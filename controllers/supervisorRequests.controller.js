@@ -30,7 +30,25 @@ const createSupervisorRequest = async (req, res) => {
 
 }
 
+const getAllRequestsofSupervisor = async (req, res) => {
+
+    const supervisor = req.params.name;
+
+    try {
+        let supervisorRequests = await SupervisorRequestList.find({
+            supervisor: supervisor
+        });
+        if (supervisorRequests) {
+            return res.json(supervisorRequests)
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(400).send({ message: 'Error on retrieving users' })
+    }
+}
 
 module.exports = {
-    createSupervisorRequest
+    createSupervisorRequest,
+    getAllRequestsofSupervisor
 }
