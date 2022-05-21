@@ -33,5 +33,9 @@ let templates = require('./routes/template.route')
 app.use('/api/v1/templates', templates)
 
 //projectpropsal route
-let projectpropsals = require('./routes/projectpropsal.route')
-app.use('/api/v1/projectpropsals', projectpropsals)
+let projectproposals = require('./routes/projectProposal.route')
+app.use('/api/v1/projectproposals', projectproposals)
+
+//assignment route
+let assignments = require('./routes/assignment.route')
+app.use('/api/v1/assignments', assignments)

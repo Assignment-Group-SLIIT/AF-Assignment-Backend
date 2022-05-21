@@ -25,15 +25,56 @@ const createTemplate = async (req, res) => {
 
 }
 
-const getAllTemplate = async (req, res) => { }
-const getOneTemplate = async (req, res) => { }
-const updateTemplate = async (req, res) => { }
-const deleteTemplate = async (req, res) => { }
+const getAllTemplate = async (req, res) => {
+    try {
+        const response = await newTemplate.find();
+        return res.status(200).send({ data: response });
+    } catch (error) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
+const updateTemplate = async (req, res) => {
+    const Id = req.params.id;
+    // console.log("template id>>", Id,);
+
+    const {
+        submissionType,
+        template,
+    } = req.body;
+
+    const templatePayload = {
+        submissionType,
+        template,
+    }
+
+    if (Id) {
+        await templatePayload.findOneAndUpdate({ submissionId: Id }, newTemplate).then(() => {
+            return res.status(200).send({ status: "Template Successfully updated!" });
+        }).catch((err) => {
+            return res.status(500).send({ status: "Internal Server Error" });
+        })
+    }
+    return res.status(400).send({ status: "Invalid Request" });
+}
+
+const deleteTemplate = async (req, res) => {
+    const Id = req.params.id;
+    // console.log("template id>>", Id,);
+
+    if (Id) {
+        const response = await newTemplate.findOneAndDelete({ submissionId: Id }).then(() => {
+            return res.status(200).send({ status: "template deleted successfully" });
+        }).catch((err) => {
+            return res.status(500).send({ message: "Internal Server Error" });
+        })
+    }
+    return res.status(400).send({ message: "Invalid Request" });
+}
 
 module.exports = {
     createTemplate,
     getAllTemplate,
-    getOneTemplate,
     updateTemplate,
     deleteTemplate
 }
