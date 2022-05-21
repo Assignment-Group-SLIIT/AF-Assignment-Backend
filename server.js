@@ -35,3 +35,7 @@ app.use('/api/v1/templates', templates)
 //group route
 let group = require('./routes/group.route');
 app.use('/api/v1/groups', group)
+
+//co supervisor request topic route
+let coSupervisorRequestTopic = require('./routes/cosupervisorRequests.route');
+app.use('/api/v1/requestTopic', coSupervisorRequestTopic)
