@@ -41,8 +41,87 @@ const getAllRequestTopic = async (req, res) => {
     }
 }
 
+const getAllRequestsofCoSupervisor = async (req, res) => {
+
+    const cosupervisor = req.params.name;
+
+    try {
+        let response = await CoSupervisorRequest
+        .find({supervisor: cosupervisor});
+        if (response) {
+            return res.json(response)
+        } else {
+            return res.status(404).send({ message: 'Error on retrieving request list of Co-supervisors' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+}
+
+
+const getOneRequest = async (req, res) => {
+
+    const groupId = req.params.id;
+
+    try {
+        let response = await CoSupervisorRequest.findOne({ groupId: groupId });
+        if (response) {
+            return res.json(response)
+        } else {
+            return res.status(404).send({ message: 'No such request available' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+}
+
+const updateCoSupervisorRequest = async (req, res) => {
+
+    const groupId = req.params.id;
+
+    const updateCoSupervisorRequest = {
+         groupId  :req.body.groupId,
+         email : req.body.email,
+         researchTopic : req.body.researchTopic,
+         researchField : req.body.researchField,
+         coSupervisor : req.body.coSupervisor
+    }
+
+    try {
+        const response = await CoSupervisorRequest.findOneAndUpdate({ groupId: groupId }, updateCoSupervisorRequest)
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated Supervisor request' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(400).send({ message: 'Unable to update' })
+    }
+
+}
+
+const deleteCoSupervisorRequest = async (req, res) => {
+    const groupId = req.params.id;
+
+    try {
+        const response = await Group.findOneAndDelete({ groupId: groupId });
+        if (response) {
+            return res.status(204).send({ message: 'Successfully deleted a Request' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+
+    } catch (err) {
+        return res.status(400).send({ message: 'Could not delete the request' })
+    }
+
+}
 
 module.exports = {
     createCoSupervisorRequest,
-    getAllRequestTopic
+    getAllRequestTopic,
+    getAllRequestsofCoSupervisor,
+    getOneRequest,
+    updateCoSupervisorRequest,
+    deleteCoSupervisorRequest
 }
