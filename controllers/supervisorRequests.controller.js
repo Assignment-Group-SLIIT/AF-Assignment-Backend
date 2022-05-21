@@ -65,6 +65,8 @@ const getAllRequests = async (req, res) => {
 
 const updateSupervisorRequest = async (req, res) => {
 
+    const groupId = req.params.id;
+
     const updateSupervisorRequest = {
         groupId: req.body.groupId,
         email: req.body.email,
