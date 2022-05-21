@@ -46,20 +46,67 @@ const getAllGroup = async(req , res) => {
 }
 
 const removeGroup = async (req,res) => {
-    const gid = req.params.groupId;
+    let groupId = req.params.id;
+    try {
+        const response = await Group.findOneAndDelete({ groupId: groupId });
+        if (response) {
+            return res.status(204).send({ message: 'Successfully deleted a Group' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
 
-    await Group.findOneAndDelete({ id: gid})
-        .then(() => {
-           return res.status(200).send({ status: "student group deleted" });
-        }).catch((err) => {
-           return  res.status(500).send({ status: "Error with deleting group record"});
-        })
+    } catch (err) {
+        return res.status(400).send({ message: 'Could not delete the Group' })
+    }
 }
 
+const getOneGroup = async (req , res) => {
+    const groupId = req.params.id;
+    try {
+        let response = await Group.findOne({ groupId: groupId });
+        if (response) {
+            return res.json(response)
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(404).send({ message: 'No such request available' })
+    }
+}
+
+
+const updateGroup = async (req, res) => {
+
+    const groupId = req.params.id;
+
+    const updateGroup = {
+     groupId : req.body.groupId,
+     student : req.body.student,
+     supervisor : req.body.supervisor,
+	 coSupervisor : req.body.coSupervisor,
+     researchTopic : req.body.researchTopic,
+     researchField : req.body.researchField,
+     panelNo : req.body.panelNo
+    }
+
+    try {
+        const response = await Group.findOneAndUpdate({ groupId: groupId }, updateGroup)
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated group request' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(400).send({ message: 'Unable to update group request' })
+    }
+
+}
 
 
 module.exports = {
     createGroup,
     getAllGroup,
-    removeGroup
+    removeGroup,
+    getOneGroup,
+    updateGroup
 }

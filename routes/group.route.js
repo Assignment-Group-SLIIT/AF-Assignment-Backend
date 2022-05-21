@@ -7,5 +7,7 @@ let groupController = require('../controllers/group.controller');
 router.post('/',groupController.createGroup)
 router.get('/',groupController.getAllGroup)
 router.delete('/:id' ,groupController.removeGroup)
+router.get('/:id',groupController.getOneGroup)
+router.put('/:id',groupController.updateGroup)
 
 module.exports = router;

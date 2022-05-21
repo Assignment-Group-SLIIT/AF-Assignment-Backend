@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 const app = express();
+const unless = require('express-unless')
+const auth = require('./middlewares/jwt');
+const errors = require('./middlewares/errorHandler')
 
 const port = process.env.PORT || 4000;
 const URL = process.env.URL;
@@ -18,6 +21,14 @@ mongoose.connect(URL, {
     // useFindandModify: false
 });
 
+// auth.authenticateToken.unless = unless
+// app.use(auth.authenticateToken.unless({
+//     path: [
+//         { url: '/api/v1/users/login', methods: ['POST'] },
+//         { url: '/api/v1/users/register', methods: ['POST'] }
+//     ]
+// }))
+
 
 app.listen(port, () => {
     console.log(`Server Is Running on Port: ${port}`);
@@ -31,6 +42,15 @@ connection.once("open", () => {
 //template route
 let templates = require('./routes/template.route')
 app.use('/api/v1/templates', templates)
+
+//users route
+let users = require('./routes/user.route')
+app.use('/api/v1/users', users);
+app.use(errors.errorHandler);
+
+//supervisor-requests route
+let supervisors = require('./routes/supervisorRequests.route')
+app.use('/api/v1/supervisors', supervisors);
 
 //projectpropsal route
 let projectproposals = require('./routes/projectProposal.route')
