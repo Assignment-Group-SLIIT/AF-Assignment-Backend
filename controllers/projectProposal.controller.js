@@ -34,7 +34,7 @@ const createProjectProposal = async (req, res) => {
 
 const getAllProjectProposal = async (req, res) => {
     try {
-        const response = await newProjectProposal.find();
+        const response = await ProjectProposal.find();
         return res.status(200).send({ data: response });
     } catch (error) {
         return res.status(500).send({ message: 'Internal server error' });
@@ -62,11 +62,12 @@ const updateProjectProposal = async (req, res) => {
     }
 
     if (Id) {
-        await ProjectProposalPayload.findOneAndUpdate({ groupId: Id }, newProjectProposal).then(() => {
+        try {
+            await ProjectProposal.findOneAndUpdate({ groupId: Id }, ProjectProposalPayload)
             return res.status(200).send({ status: "ProjectProposal Successfully updated!" });
-        }).catch((err) => {
+        } catch {
             return res.status(500).send({ status: "Internal Server Error" });
-        })
+        }
     }
     return res.status(400).send({ status: "Invalid Request" });
 }
