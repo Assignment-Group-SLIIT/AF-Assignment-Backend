@@ -43,7 +43,18 @@ const getAllSubmissions = async (req, res) => {
     }
 }
 
-
+const updateSubmission = async (req, res) => {
+    try {
+        let response = await Submission.find();
+        if (response) {
+            return res.json(response);
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
 
 
 module.exports = { addSubmission, getAllSubmissions }
