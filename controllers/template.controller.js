@@ -32,13 +32,12 @@ const getAllTemplate = async (req, res) => {
         const response = await Template.find();
         return res.status(200).send({ data: response });
     } catch (error) {
-        console.log("error!>>", error.message)
         return res.status(500).send({ message: 'Internal server error' });
     }
 }
 
 const updateTemplate = async (req, res) => {
-    const Id = req.params.id;
+    const Id = req.query.id;
     // console.log("template id>>", Id,);
 
     const {
@@ -64,7 +63,7 @@ const updateTemplate = async (req, res) => {
 }
 
 const deleteTemplate = async (req, res) => {
-    const Id = req.params.id;
+    const Id = req.query.id;
     // console.log("template id>>", Id,);
 
     if (Id) {
