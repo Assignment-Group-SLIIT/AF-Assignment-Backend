@@ -27,3 +27,7 @@ const connection = mongoose.connection;
 connection.once("open", () => {
     console.log("Mongodb Connection success!");
 })
+
+//template route
+let templates = require('./routes/template.route')
+app.use('/api/v1/templates', templates)
