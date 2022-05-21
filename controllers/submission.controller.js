@@ -78,5 +78,20 @@ const updateSubmission = async (req, res) => {
     }
 }
 
+const deleteSubmission = async (req, res) => {
+    const Id = req.query.id;
+    // console.log("template id>>", Id,);
 
-module.exports = { addSubmission, getAllSubmissions, updateSubmission }
+    if (Id) {
+        try {
+            await Panel.findOneAndDelete({ submissionId: Id });
+            return res.status(200).send({ status: " deleted successfully" });
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" });
+        }
+    }
+    return res.status(400).send({ message: "Invalid Request" });
+}
+
+
+module.exports = { addSubmission, getAllSubmissions, updateSubmission, deleteSubmission }
