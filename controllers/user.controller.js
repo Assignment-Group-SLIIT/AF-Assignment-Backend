@@ -98,10 +98,10 @@ const getOneUser = async (req, res) => {
         if (user) {
             return res.json(user)
         } else {
-            return res.status(500).send({ message: 'Internal server error' });
+            return res.status(404).send({ message: 'No such user found' });
         }
     } catch (err) {
-        return res.status(404).send({ message: 'No such user found' })
+        return res.status(500).send({ message: 'Internal Server Error' })
     }
 }
 
@@ -194,11 +194,11 @@ const deleteUser = async (req, res) => {
         if (user) {
             return res.status(204).send({ message: 'Successfully deleted A User' });
         } else {
-            return res.status(500).send({ message: 'Internal server error' });
+            return res.status(404).send({ message: 'Such user does not exists recheck the email' });
         }
 
     } catch (err) {
-        return res.status(404).send({ message: 'Such user does not exists recheck the email' })
+        return res.status(500).send({ message: 'Internal Server Error' })
     }
 
 }
