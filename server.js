@@ -67,6 +67,10 @@ app.use('/api/v1/groups', groups)
 let coSupervisorRequestTopics = require('./routes/cosupervisorRequests.route');
 app.use('/api/v1/requestTopicsCoSupervisors', coSupervisorRequestTopics)
 
-//template route
+//submission route
 let submission = require('./routes/submission.route')
 app.use('/api/v1/submissions', submission)
+
+//panel route
+let Panels = require('./routes/panel.route')
+app.use('/api/v1/panels', Panels)
