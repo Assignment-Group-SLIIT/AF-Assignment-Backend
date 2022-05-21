@@ -1,5 +1,6 @@
 const CoSupervisorRequest = require('../models/cosupervisorRequests.model');
 
+//create co-supervisor request
 const createCoSupervisorRequest = async (req, res) => {
     const groupId = req.body.groupId;
     const email = req.body.email;
@@ -28,6 +29,7 @@ const createCoSupervisorRequest = async (req, res) => {
 
 }
 
+//get all request topic
 const getAllRequestTopic = async (req, res) => {
     try {
         let response = await CoSupervisorRequest.find();
@@ -41,6 +43,7 @@ const getAllRequestTopic = async (req, res) => {
     }
 }
 
+//get all co-supervisor request by name
 const getAllRequestsofCoSupervisor = async (req, res) => {
 
     const cosupervisor = req.params.name;
@@ -58,7 +61,7 @@ const getAllRequestsofCoSupervisor = async (req, res) => {
     }
 }
 
-
+//get one request
 const getOneRequest = async (req, res) => {
 
     const groupId = req.params.id;
@@ -75,6 +78,7 @@ const getOneRequest = async (req, res) => {
     }
 }
 
+//update request 
 const updateCoSupervisorRequest = async (req, res) => {
 
     const groupId = req.params.id;
@@ -100,18 +104,22 @@ const updateCoSupervisorRequest = async (req, res) => {
 
 }
 
+//delete co suervisor request
 const deleteCoSupervisorRequest = async (req, res) => {
     const groupId = req.params.id;
 
     try {
-        const response = await Group.findOneAndDelete({ groupId: groupId });
+        const response = await CoSupervisorRequest.findOneAndDelete({ groupId: groupId });
+        
         if (response) {
-            return res.status(204).send({ message: 'Successfully deleted a Request' });
+            return res.status(200).send({ message: 'Successfully deleted a Request' });
+            
         } else {
             return res.status(500).send({ message: 'Internal server error' });
         }
 
     } catch (err) {
+        console.log(err.message)
         return res.status(400).send({ message: 'Could not delete the request' })
     }
 

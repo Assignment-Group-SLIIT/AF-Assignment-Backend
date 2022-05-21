@@ -1,6 +1,5 @@
 const Assignment = require('../models/assignment.model');
 
-
 const createAssignment = async (req, res) => {
 
     const {
@@ -36,7 +35,7 @@ const createAssignment = async (req, res) => {
 
 const getAllAssignment = async (req, res) => {
     try {
-        const response = await newAssignment.find();
+        const response = await Assignment.find();
         return res.status(200).send({ data: response });
     } catch (error) {
         return res.status(500).send({ message: 'Internal server error' });
@@ -44,6 +43,7 @@ const getAllAssignment = async (req, res) => {
 }
 
 const updateAssignment = async (req, res) => {
+    // const Id = req.query.id;
     const Id = req.params.id;
     // console.log("assignment id>>", Id,);
 
@@ -66,25 +66,28 @@ const updateAssignment = async (req, res) => {
     }
 
     if (Id) {
-        await assignmentPayload.findOneAndUpdate({ submissionId: Id }, newAssignment).then(() => {
+        try {
+            await Assignment.findOneAndUpdate({ submissionId: Id }, assignmentPayload);
             return res.status(200).send({ status: "assignment Successfully updated!" });
-        }).catch((err) => {
+        } catch (err) {
             return res.status(500).send({ status: "Internal Server Error" });
-        })
+        }
     }
     return res.status(400).send({ status: "Invalid Request" });
 }
 
 const deleteAssignment = async (req, res) => {
+    // const Id = req.query.id;
     const Id = req.params.id;
     // console.log("assignment id>>", Id,);
 
     if (Id) {
-        await newAssignment.findOneAndDelete({ submissionId: Id }).then(() => {
+        try {
+            await Assignment.findOneAndDelete({ submissionId: Id })
             return res.status(200).send({ status: "assignment deleted successfully" });
-        }).catch((err) => {
+        } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
-        })
+        }
     }
     return res.status(400).send({ message: "Invalid Request" });
 }

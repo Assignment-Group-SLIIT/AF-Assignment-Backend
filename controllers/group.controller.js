@@ -1,5 +1,6 @@
 const Group = require('../models/group.model');
 
+//register group with supervisors
 const createGroup = async (req, res) => {
     const groupId = req.body.groupId;
     const student = req.body.student;
@@ -32,6 +33,7 @@ const createGroup = async (req, res) => {
 
 }
 
+//get all registered group 
 const getAllGroup = async(req , res) => {
     try {
         let response = await Group.find();
@@ -45,12 +47,13 @@ const getAllGroup = async(req , res) => {
     }
 }
 
+//remove group
 const removeGroup = async (req,res) => {
     let groupId = req.params.id;
     try {
         const response = await Group.findOneAndDelete({ groupId: groupId });
         if (response) {
-            return res.status(204).send({ message: 'Successfully deleted a Group' });
+            return res.status(200).send({ message: 'Successfully deleted a Group' });
         } else {
             return res.status(500).send({ message: 'Internal server error' });
         }
@@ -60,6 +63,7 @@ const removeGroup = async (req,res) => {
     }
 }
 
+//get on group by group Id
 const getOneGroup = async (req , res) => {
     const groupId = req.params.id;
     try {
@@ -74,7 +78,7 @@ const getOneGroup = async (req , res) => {
     }
 }
 
-
+//update group details by group Id
 const updateGroup = async (req, res) => {
 
     const groupId = req.params.id;
