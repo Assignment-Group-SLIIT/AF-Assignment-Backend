@@ -75,9 +75,38 @@ const getOneGroup = async (req , res) => {
 }
 
 
+const updateGroup = async (req, res) => {
+
+    const groupId = req.params.id;
+
+    const updateGroup = {
+     groupId : req.body.groupId,
+     student : req.body.student,
+     supervisor : req.body.supervisor,
+	 coSupervisor : req.body.coSupervisor,
+     researchTopic : req.body.researchTopic,
+     researchField : req.body.researchField,
+     panelNo : req.body.panelNo
+    }
+
+    try {
+        const response = await Group.findOneAndUpdate({ groupId: groupId }, updateGroup)
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated group request' });
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(400).send({ message: 'Unable to update group request' })
+    }
+
+}
+
+
 module.exports = {
     createGroup,
     getAllGroup,
     removeGroup,
-    getOneGroup
+    getOneGroup,
+    updateGroup
 }
