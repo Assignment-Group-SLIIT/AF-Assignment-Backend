@@ -68,11 +68,12 @@ const deleteTemplate = async (req, res) => {
     // console.log("template id>>", Id,);
 
     if (Id) {
-        const response = await Template.findOneAndDelete({ submissionId: Id }).then(() => {
+        try {
+            await Template.findOneAndDelete({ submissionId: Id });
             return res.status(200).send({ status: "template deleted successfully" });
-        }).catch((err) => {
+        } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
-        })
+        }
     }
     return res.status(400).send({ message: "Invalid Request" });
 }
