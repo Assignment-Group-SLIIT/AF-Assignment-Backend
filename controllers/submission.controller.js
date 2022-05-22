@@ -2,7 +2,6 @@
 const Submission = require('../models/submission.model')
 
 const addSubmission = async (req, res) => {
-    console.log("reqqqq>>", req.body)
 
     const submissionId = req.body.submissionId;
     const submissionType = req.body.submissionType;
@@ -25,7 +24,6 @@ const addSubmission = async (req, res) => {
             return res.status(500).send({ message: 'Internal Server Error!!' });
         }
     } catch (err) {
-        console.log("errr>>", err)
         return res.status(400).send({ message: 'error while adding a submission' });
     }
 }
@@ -46,8 +44,6 @@ const getAllSubmissions = async (req, res) => {
 const updateSubmission = async (req, res) => {
 
     const id = req.params.id;
-    console.log("req id>>", id)
-
     if (!id) {
         return res.status(400).send({ message: "Invalid Request" });
     }
@@ -81,7 +77,6 @@ const updateSubmission = async (req, res) => {
 
 const deleteSubmission = async (req, res) => {
     const Id = req.params.id;
-    console.log("submission id>>", Id,);
     if (!Id) {
         return res.status(400).send({ message: "Invalid Request" });
     }

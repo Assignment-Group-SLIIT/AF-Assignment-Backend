@@ -59,7 +59,6 @@ const getOnePanel = async (req, res) => {
 }
 
 const updatePanel = async (req, res) => {
-    console.log("req??", req.query.id)
     const id = req.params.id;
 
     if (!id) {
@@ -99,7 +98,6 @@ const updatePanel = async (req, res) => {
 
 const deletepanel = async (req, res) => {
     const Id = req.params.id;
-    // console.log("template id>>", Id,);
     if (!Id) {
         return res.status(400).send({ message: "Invalid Request" });
     }
