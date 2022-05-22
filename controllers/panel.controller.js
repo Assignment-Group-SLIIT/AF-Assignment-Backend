@@ -44,6 +44,20 @@ const getAllPanels = async (req, res) => {
     }
 }
 
+const getOnePanel = async (req, res) => {
+    let id = req.param.id;
+    try {
+        let response = await Panel.findOne({ panelId: id });
+        if (response) {
+            return res.json(response);
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
 const updatePanel = async (req, res) => {
     console.log("req??", req.query.id)
     const id = req.query.id;
@@ -99,4 +113,4 @@ const deletepanel = async (req, res) => {
 }
 
 
-module.exports = { addPanel, getAllPanels, updatePanel, deletepanel }
+module.exports = { addPanel, getAllPanels, updatePanel, deletepanel, getOnePanel }
