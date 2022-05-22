@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const submissionSchema = new Schema({
-    submissionID: { type: String, required: true },
+    submissionId: { type: String, required: true },
     submissionType: { type: String, required: true },
     startDate: { type: String, required: true },
     endDate: { type: String, required: true },
