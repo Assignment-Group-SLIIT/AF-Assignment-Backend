@@ -43,7 +43,8 @@ const getAllAssignment = async (req, res) => {
 }
 
 const updateAssignment = async (req, res) => {
-    const Id = req.query.id;
+    // const Id = req.query.id;
+    const Id = req.params.id;
     // console.log("assignment id>>", Id,);
 
     const {
@@ -66,7 +67,7 @@ const updateAssignment = async (req, res) => {
 
     if (Id) {
         try {
-            await Assignment.findOneAndUpdate({ submissionId: Id }, assignmentPayload)
+            await Assignment.findOneAndUpdate({ submissionId: Id }, assignmentPayload);
             return res.status(200).send({ status: "assignment Successfully updated!" });
         } catch (err) {
             return res.status(500).send({ status: "Internal Server Error" });
@@ -76,12 +77,13 @@ const updateAssignment = async (req, res) => {
 }
 
 const deleteAssignment = async (req, res) => {
-    const Id = req.query.id;
+    // const Id = req.query.id;
+    const Id = req.params.id;
     // console.log("assignment id>>", Id,);
 
     if (Id) {
         try {
-            await newAssignment.findOneAndDelete({ submissionId: Id })
+            await Assignment.findOneAndDelete({ submissionId: Id })
             return res.status(200).send({ status: "assignment deleted successfully" });
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
