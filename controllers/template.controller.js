@@ -37,7 +37,8 @@ const getAllTemplate = async (req, res) => {
 }
 
 const updateTemplate = async (req, res) => {
-    const Id = req.query.id;
+    // const Id = req.query.id;
+    const Id = req.params.id;
     // console.log("template id>>", Id,);
 
     const {
