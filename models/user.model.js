@@ -27,6 +27,7 @@ const UserSchema = new Schema({
     role: {
         type: String,
         required: true,
+        enum: ['Student', 'Admin', 'Supervisor', 'Co-Supervisor', 'Panel']
     },
     groupId: {
         type: String,
