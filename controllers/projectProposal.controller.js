@@ -1,6 +1,5 @@
 const ProjectProposal = require('../models/projectProposal.model');
 
-
 const createProjectProposal = async (req, res) => {
 
     const {
@@ -65,12 +64,12 @@ const updateProjectProposal = async (req, res) => {
     if (Id) {
         try {
             await ProjectProposal.findOneAndUpdate({ groupId: Id }, ProjectProposalPayload)
-            return res.status(200).send({ status: "ProjectProposal Successfully updated!" });
+            return res.status(200).send({ message: "ProjectProposal Successfully updated!" });
         } catch {
-            return res.status(500).send({ status: "Internal Server Error" });
+            return res.status(500).send({ message: "Internal Server Error" });
         }
     }
-    return res.status(400).send({ status: "Invalid Request" });
+    return res.status(400).send({ message: "Invalid Request" });
 }
 
 const deleteProjectProposal = async (req, res) => {
@@ -80,7 +79,7 @@ const deleteProjectProposal = async (req, res) => {
     if (Id) {
         try {
             await ProjectProposal.findOneAndDelete({ groupId: Id })
-            return res.status(200).send({ status: "ProjectProposal deleted successfully" });
+            return res.status(200).send({ message: "ProjectProposal deleted successfully" });
         } catch {
             return res.status(500).send({ message: "Internal Server Error" });
         }
