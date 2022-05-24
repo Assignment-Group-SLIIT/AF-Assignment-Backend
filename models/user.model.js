@@ -32,7 +32,7 @@ const UserSchema = new Schema({
         type: String,
     },
     isAvailable: {
-        type: String,
+        type: Boolean,
     },
     department: {
         type: String,
