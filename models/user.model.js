@@ -33,7 +33,7 @@ const UserSchema = new Schema({
         type: String,
     },
     isAvailable: {
-        type: boolean,
+        type: Boolean,
     },
     department: {
         type: String,
