@@ -3,7 +3,7 @@ const Panel = require('../models/panel.model');
 const addPanel = async (req, res) => {
 
     const panelId = req.body.panelId;
-    const panelNumber = req.body.panelNumber;
+    const panelNumber = Number(req.body.panelNumber);
     const member1 = req.body.member1;
     const member2 = req.body.member2;
     const member3 = req.body.member3;
