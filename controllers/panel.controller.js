@@ -10,7 +10,7 @@ const addPanel = async (req, res) => {
     const member4 = req.body.member4;
     const FieldOfInterest = req.body.FieldOfInterest;
 
-    const newPanel = new Submission({
+    const newPanel = new Panel({
         panelId,
         panelNumber,
         member1,
@@ -22,12 +22,12 @@ const addPanel = async (req, res) => {
     try {
         let response = await newPanel.save();
         if (response) {
-            return res.status(201).send({ message: 'new Panel Deleted sucessfully' });
+            return res.status(201).send({ message: 'new Panel Added sucessfully' });
         } else {
             return res.status(500).send({ message: 'Internal Server Error!!' });
         }
     } catch (err) {
-        return res.status(400).send({ message: 'error while adding a submission' });
+        return res.status(400).send({ message: 'error while adding a panel' });
     }
 }
 
@@ -44,9 +44,22 @@ const getAllPanels = async (req, res) => {
     }
 }
 
+const getOnePanel = async (req, res) => {
+    let id = req.params.id;
+    try {
+        let response = await Panel.findOne({ panelId: id });
+        if (response) {
+            return res.json(response);
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
 const updatePanel = async (req, res) => {
-    console.log("req??", req.query.id)
-    const id = req.query.id;
+    const id = req.params.id;
 
     if (!id) {
         return res.status(400).send({ message: "Invalid Request" });
@@ -84,8 +97,7 @@ const updatePanel = async (req, res) => {
 }
 
 const deletepanel = async (req, res) => {
-    const Id = req.query.id;
-    // console.log("template id>>", Id,);
+    const Id = req.params.id;
     if (!Id) {
         return res.status(400).send({ message: "Invalid Request" });
     }
@@ -99,4 +111,4 @@ const deletepanel = async (req, res) => {
 }
 
 
-module.exports = { addPanel, getAllPanels, updatePanel, deletepanel }
+module.exports = { addPanel, getAllPanels, updatePanel, deletepanel, getOnePanel }

@@ -53,7 +53,7 @@ const removeGroup = async (req,res) => {
     try {
         const response = await Group.findOneAndDelete({ groupId: groupId });
         if (response) {
-            return res.status(200).send({ message: 'Successfully deleted a Group' });
+            return res.status(204).send({ message: 'Successfully deleted a Group' });
         } else {
             return res.status(500).send({ message: 'Internal server error' });
         }

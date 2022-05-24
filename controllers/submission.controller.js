@@ -2,7 +2,6 @@
 const Submission = require('../models/submission.model')
 
 const addSubmission = async (req, res) => {
-    console.log("reqqqq>>", req.body)
 
     const submissionId = req.body.submissionId;
     const submissionType = req.body.submissionType;
@@ -25,7 +24,6 @@ const addSubmission = async (req, res) => {
             return res.status(500).send({ message: 'Internal Server Error!!' });
         }
     } catch (err) {
-        console.log("errr>>", err)
         return res.status(400).send({ message: 'error while adding a submission' });
     }
 }
@@ -45,8 +43,7 @@ const getAllSubmissions = async (req, res) => {
 
 const updateSubmission = async (req, res) => {
 
-    const id = req.query.id;
-
+    const id = req.params.id;
     if (!id) {
         return res.status(400).send({ message: "Invalid Request" });
     }
@@ -79,14 +76,13 @@ const updateSubmission = async (req, res) => {
 }
 
 const deleteSubmission = async (req, res) => {
-    const Id = req.query.id;
-    // console.log("template id>>", Id,);
+    const Id = req.params.id;
     if (!Id) {
         return res.status(400).send({ message: "Invalid Request" });
     }
 
     try {
-        await Panel.findOneAndDelete({ submissionId: Id });
+        await Submission.findOneAndDelete({ submissionId: Id });
         return res.status(200).send({ status: "submission deleted successfully" });
     } catch (err) {
         return res.status(500).send({ message: "Internal Server Error" });
@@ -95,5 +91,19 @@ const deleteSubmission = async (req, res) => {
 
 }
 
+const getOneSubmission = async (req, res) => {
+    let id = req.params.id;
+    try {
+        let response = await Submission.findOne({ submissionId: id });
+        if (response) {
+            return res.json(response);
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
 
-module.exports = { addSubmission, getAllSubmissions, updateSubmission, deleteSubmission }
+
+module.exports = { addSubmission, getAllSubmissions, updateSubmission, deleteSubmission, getOneSubmission }

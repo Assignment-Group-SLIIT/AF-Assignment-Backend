@@ -7,5 +7,6 @@ router.post('/', submissionControlller.addSubmission);
 router.get('/', submissionControlller.getAllSubmissions);
 router.put('/:id', submissionControlller.updateSubmission);
 router.delete('/:id', submissionControlller.deleteSubmission);
+router.get('/:id', submissionControlller.getOneSubmission);
 
 module.exports = router;
