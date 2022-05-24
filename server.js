@@ -6,6 +6,7 @@ const app = express();
 const unless = require('express-unless')
 const auth = require('./middlewares/jwt');
 const errors = require('./middlewares/errorHandler')
+const socket = require("socket.io");
 
 const port = process.env.PORT || 4000;
 const URL = process.env.URL;
@@ -30,7 +31,7 @@ mongoose.connect(URL, {
 // }))
 
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server Is Running on Port: ${port}`);
 });
 
@@ -74,3 +75,30 @@ app.use('/api/v1/submissions', submission)
 //panel route
 let Panels = require('./routes/panel.route')
 app.use('/api/v1/panels', Panels)
+
+//mesageRoute
+let message = require('./routes/message.route')
+app.use('/api/v1/messages',message)
+
+//chat server
+const io = socket(server, {
+    cors: {
+      origin: "http://localhost:1234",
+      credentials: true,
+    },
+  });
+  
+  global.onlineUsers = new Map();
+  io.on("connection", (socket) => {
+    global.chatSocket = socket;
+    socket.on("add-user", (_id) => {
+      onlineUsers.set(_id, socket.id);
+    });
+  
+    socket.on("send-msg", (data) => {
+      const sendUserSocket = onlineUsers.get(data.to);
+      if (sendUserSocket) {
+        socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+      }
+    });
+  });
