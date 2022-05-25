@@ -203,7 +203,6 @@ const deleteUser = async (req, res) => {
 
 }
 
-
 module.exports = {
     register,
     login,
@@ -211,5 +210,5 @@ module.exports = {
     getOneUser,
     updateUserPassword,
     updateUser,
-    deleteUser
+    deleteUser,
 }
