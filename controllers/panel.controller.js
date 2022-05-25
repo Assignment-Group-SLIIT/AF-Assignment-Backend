@@ -104,7 +104,7 @@ const deletepanel = async (req, res) => {
 
     try {
         await Panel.findOneAndDelete({ panelId: Id });
-        return res.status(200).send({ status: "panel deleted successfully" });
+        return res.status(204).send({ status: "panel deleted successfully" });
     } catch (err) {
         return res.status(500).send({ message: "Internal Server Error" });
     }
