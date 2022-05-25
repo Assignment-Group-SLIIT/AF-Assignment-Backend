@@ -1,4 +1,5 @@
 const Group = require('../models/group.model');
+let sendEmail = require('../controllers/thirdpartyapis')
 
 //register group with supervisors
 const createGroup = async (req, res) => {
@@ -87,6 +88,11 @@ const getOneGroup = async (req, res) => {
 const updateGroup = async (req, res) => {
 
     const groupId = req.params.id;
+    const leaderEmail = req.body?.student?.leader?.email
+    const leaderName = req.body?.student?.leader?.name;
+    const msg = "Your team evaluations will be conducted by Panel " + req.body.panelNo + ". So Please refer to the published time tables ";
+
+    // console.log(leaderEmail)
 
     const updateGroup = {
         groupId: req.body.groupId,
@@ -101,7 +107,18 @@ const updateGroup = async (req, res) => {
     try {
         const response = await Group.findOneAndUpdate({ groupId: groupId }, updateGroup)
         if (response) {
-            return res.status(200).send({ message: 'Successfully updated group request' });
+
+            try {
+                sendEmail(leaderEmail, leaderName, msg)
+                if (response) {
+                    return res.status(200).send({ message: 'Successfully updated group request' });
+                } else {
+                    return res.status(500).send({ message: 'Internal server error with sending email' });
+                }
+            } catch (err) {
+                return res.status(400).send({ message: 'Unable to inform the group on allocation' })
+            }
+
         } else {
             return res.status(500).send({ message: 'Internal server error' });
         }

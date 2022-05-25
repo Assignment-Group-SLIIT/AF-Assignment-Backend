@@ -3,7 +3,7 @@ const Panel = require('../models/panel.model');
 const addPanel = async (req, res) => {
 
     const panelId = req.body.panelId;
-    const panelNumber = req.body.panelNumber;
+    const panelNumber = Number(req.body.panelNumber);
     const member1 = req.body.member1;
     const member2 = req.body.member2;
     const member3 = req.body.member3;
@@ -87,6 +87,7 @@ const updatePanel = async (req, res) => {
 
         let response = await Panel.findOneAndUpdate({ panelId: id }, updatePanelData);
         if (response) {
+
             return res.status(200).send({ status: " Panel updated successfully" });
         } else {
             return res.status(500).send({ message: 'Internal server error' });
@@ -104,7 +105,7 @@ const deletepanel = async (req, res) => {
 
     try {
         await Panel.findOneAndDelete({ panelId: Id });
-        return res.status(200).send({ status: "panel deleted successfully" });
+        return res.status(204).send({ status: "panel deleted successfully" });
     } catch (err) {
         return res.status(500).send({ message: "Internal Server Error" });
     }
