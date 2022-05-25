@@ -87,6 +87,7 @@ const updatePanel = async (req, res) => {
 
         let response = await Panel.findOneAndUpdate({ panelId: id }, updatePanelData);
         if (response) {
+
             return res.status(200).send({ status: " Panel updated successfully" });
         } else {
             return res.status(500).send({ message: 'Internal server error' });
