@@ -23,10 +23,10 @@ const createGroup = async (req, res) => {
     try {
         let response = await newGroup.save();
         if (response) {
-            await updateMemberAvailability(student.leader.registrationNo.toUpperCase())
-            await updateMemberAvailability(student.member01.registrationNo.toUpperCase())
-            await updateMemberAvailability(student.member02.registrationNo.toUpperCase())
-            await updateMemberAvailability(student.member03.registrationNo.toUpperCase())
+            await updateMemberAvailability(student.leader.registrationNo.toUpperCase(), groupId)
+            await updateMemberAvailability(student.member01.registrationNo.toUpperCase(), groupId)
+            await updateMemberAvailability(student.member02.registrationNo.toUpperCase(), groupId)
+            await updateMemberAvailability(student.member03.registrationNo.toUpperCase(), groupId)
             return res.status(201).send({ message: "new student group created" })
         } else {
             return res.status(500).send({ message: "Internal server error" })
@@ -112,11 +112,11 @@ const updateGroup = async (req, res) => {
 }
 
 //to update member availability
-const updateMemberAvailability = async (studentId) => {
+const updateMemberAvailability = async (studentId, groupId) => {
     try {
         const res = await User.findOneAndUpdate(
             { "studentId": studentId },
-            { $set: { "isAvailable": false } }
+            { $set: { "isAvailable": false, "groupId": groupId } }
         )
     } catch (err) {
         console.log("error while updating user>>", err)
