@@ -95,9 +95,13 @@ const deleteAssignment = async (req, res) => {
 }
 
 const updateMarks = async (req, res) => {
-    let type = req.params.marks;
+    let marks = req.params.assignemnet.marks;
+    let groupId = req.params.assignemnet.groupId;
     try {
-        let response = await Submission.findOneAndUpdate({ marks: marks });
+        let response = await Submission.findOneAndUpdate(
+            { "groupId": groupId },
+            { $set: { "marks": marks } }
+        );
         if (response) {
             return res.json(response);
         } else {
