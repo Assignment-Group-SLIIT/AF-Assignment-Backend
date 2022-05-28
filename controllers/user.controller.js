@@ -205,22 +205,20 @@ const deleteUser = async (req, res) => {
 
 }
 
-<<<<<<< HEAD
 const getAllUsersChat = async (req, res, next) => {
     const groupId = req.params.groupId
     try {
-      const users = await User.find({$and:[{ _id: { $ne: req.params.id } } , {groupId}]}).select([
-        "email",
-        "fullname",
-        "_id",
-        "groupId"
-      ]);
-      return res.json(users);
+        const users = await User.find({ $and: [{ _id: { $ne: req.params.id } }, { groupId }] }).select([
+            "email",
+            "fullname",
+            "_id",
+            "groupId"
+        ]);
+        return res.json(users);
     } catch (ex) {
-      next(ex);
+        next(ex);
     }
-  };
-=======
+};
 const searchName = async (req, res) => {
     const name = req.params.name;
 
@@ -237,7 +235,39 @@ const searchName = async (req, res) => {
     }
 
 }
->>>>>>> d8c4d5b1e801351ac0f420d032ff65a1424c6347
+
+const updateSupervisor = async (req, res) => {
+
+    const supervisor = req.params.supervisor
+    const fullname = req.params.name
+
+    try {
+        const res = await User.findOneAndUpdate(
+            { "fullname": fullname },
+            { $set: { "supervisor": supervisor } }
+        )
+    } catch (err) {
+        console.log("error while updating user>>", err)
+    }
+
+}
+
+const updateCoSupervisor = async (req, res) => {
+
+    const cosupervisor = req.params.cosupervisor
+    const fullname = req.params.name
+    try {
+        const res = await User.findOneAndUpdate(
+            { "fullname": fullname },
+            { $set: { "cosupervisor": cosupervisor } }
+        )
+    } catch (err) {
+        console.log("error while updating user>>", err)
+    }
+
+
+}
+
 
 module.exports = {
     register,
@@ -247,9 +277,9 @@ module.exports = {
     updateUserPassword,
     updateUser,
     deleteUser,
-<<<<<<< HEAD
-    getAllUsersChat
-=======
-    searchName
->>>>>>> d8c4d5b1e801351ac0f420d032ff65a1424c6347
+    getAllUsersChat,
+    searchName,
+    updateSupervisor,
+    updateCoSupervisor
+
 }
