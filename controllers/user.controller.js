@@ -42,6 +42,7 @@ const register = async (req, res) => {
             return res.status(500).send({ message: 'Internal server error' });
         }
     } catch (err) {
+        console.log(err);
         return res.status(400).send({ message: 'Error while registering a user' })
     }
 
@@ -204,6 +205,22 @@ const deleteUser = async (req, res) => {
 
 }
 
+<<<<<<< HEAD
+const getAllUsersChat = async (req, res, next) => {
+    const groupId = req.params.groupId
+    try {
+      const users = await User.find({$and:[{ _id: { $ne: req.params.id } } , {groupId}]}).select([
+        "email",
+        "fullname",
+        "_id",
+        "groupId"
+      ]);
+      return res.json(users);
+    } catch (ex) {
+      next(ex);
+    }
+  };
+=======
 const searchName = async (req, res) => {
     const name = req.params.name;
 
@@ -220,6 +237,7 @@ const searchName = async (req, res) => {
     }
 
 }
+>>>>>>> d8c4d5b1e801351ac0f420d032ff65a1424c6347
 
 module.exports = {
     register,
@@ -229,5 +247,9 @@ module.exports = {
     updateUserPassword,
     updateUser,
     deleteUser,
+<<<<<<< HEAD
+    getAllUsersChat
+=======
     searchName
+>>>>>>> d8c4d5b1e801351ac0f420d032ff65a1424c6347
 }

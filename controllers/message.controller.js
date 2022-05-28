@@ -23,17 +23,24 @@ const getMessages = async (req, res, next) => {
   
 const addMessage = async (req, res, next) => {
     try {
-      const { 
-          users, 
-          sender, 
-          message 
-        } = req.body;
+      // const { 
+      //     users, 
+      //     sender, 
+      //     message 
+      //   } = req.body;
       
-      const response = await Message.create({
-        message: { text: message },
-        users,
-        sender,
-      });
+      // const response = await Message.create({
+      //   message: { text: message },
+      //   users,
+      //   sender,
+      // });
+
+    const { from, to, message } = req.body;
+    const response = await Message.create({
+      message: { text: message },
+      users: [from, to],
+      sender: from,
+    });
       
       if (response) return res.json({ msg: "Message added successfully." });
       else return res.json({ msg: "Failed to add message to the database" });
