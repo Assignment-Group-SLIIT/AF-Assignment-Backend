@@ -1,4 +1,5 @@
 const Assignment = require('../models/assignment.model');
+const sendEmail = require('./thirdpartyapis');
 
 
 const createAssignment = async (req, res) => {
@@ -112,11 +113,49 @@ const updateMarks = async (req, res) => {
     }
 }
 
+const sendPresentationEmail = async (req, res) => {
+
+    const email = req.body.email;
+    const name = req.body.name;
+    const message = req.body.message;
+
+    // console.log(email, name, message)
+
+    try {
+        if (sendEmail(email, name, message)) {
+            return res.status(200).send({ status: "Presentation Email sent successfully" });
+        }
+
+
+    } catch (err) {
+        return res.status(500).send({ message: "Internal Server Error" });
+    }
+}
+
+
+const getAllAssignmentForGroup = async (req, res) => {
+    const groupId = req.params.id;
+    // console.log(groupId)
+    try {
+        const response = await Assignment.find({ groupId: groupId });
+        if (response) {
+            return res.status(200).send(response);
+        } else {
+            return res.status(404).send({ message: 'No result found' });
+        }
+
+    } catch (error) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
 module.exports = {
     createAssignment,
     getAllAssignment,
     updateAssignment,
     deleteAssignment,
-    updateMarks
+    updateMarks,
+    sendPresentationEmail,
+    getAllAssignmentForGroup
 }
 

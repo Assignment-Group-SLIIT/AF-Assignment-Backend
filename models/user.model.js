@@ -40,6 +40,12 @@ const UserSchema = new Schema({
     },
     field: {
         type: String,
+    },
+    supervisor: {
+        type: String,
+    },
+    cosupervisor: {
+        type: String,
     }
 });
 

@@ -236,6 +236,39 @@ const searchName = async (req, res) => {
 
 }
 
+const updateSupervisor = async (req, res) => {
+
+    const supervisor = req.params.supervisor
+    const fullname = req.params.name
+
+    try {
+        const res = await User.findOneAndUpdate(
+            { "fullname": fullname },
+            { $set: { "supervisor": supervisor } }
+        )
+    } catch (err) {
+        console.log("error while updating user>>", err)
+    }
+
+}
+
+const updateCoSupervisor = async (req, res) => {
+
+    const cosupervisor = req.params.cosupervisor
+    const fullname = req.params.name
+    try {
+        const res = await User.findOneAndUpdate(
+            { "fullname": fullname },
+            { $set: { "cosupervisor": cosupervisor } }
+        )
+    } catch (err) {
+        console.log("error while updating user>>", err)
+    }
+
+
+}
+
+
 module.exports = {
     register,
     login,
@@ -245,5 +278,8 @@ module.exports = {
     updateUser,
     deleteUser,
     getAllUsersChat,
-    searchName
+    searchName,
+    updateSupervisor,
+    updateCoSupervisor
+
 }
