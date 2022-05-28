@@ -248,8 +248,8 @@ const updateSupervisor = async (req, res) => {
         )
         console.log(response)
         if (response) {
-            // return res.status(200).send({ message: 'Updated user' });
-            return res.json(response)
+            return res.status(200).send({ message: 'Updated user' });
+            // return res.json(response)
         }
     } catch (err) {
         console.log("error while updating user>>", err)
