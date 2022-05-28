@@ -242,10 +242,15 @@ const updateSupervisor = async (req, res) => {
     const fullname = req.params.name
 
     try {
-        const res = await User.findOneAndUpdate(
-            { "fullname": fullname },
+        const response = await User.findOneAndUpdate(
+            { fullname: fullname },
             { $set: { "supervisor": supervisor } }
         )
+        console.log(response)
+        if (response) {
+            // return res.status(200).send({ message: 'Updated user' });
+            return res.json(response)
+        }
     } catch (err) {
         console.log("error while updating user>>", err)
     }
@@ -257,10 +262,13 @@ const updateCoSupervisor = async (req, res) => {
     const cosupervisor = req.params.cosupervisor
     const fullname = req.params.name
     try {
-        const res = await User.findOneAndUpdate(
-            { "fullname": fullname },
+        const response = await User.findOneAndUpdate(
+            { fullname: fullname },
             { $set: { "cosupervisor": cosupervisor } }
         )
+        if (response) {
+            return res.status(200).send({ message: 'Updated user' });
+        }
     } catch (err) {
         console.log("error while updating user>>", err)
     }

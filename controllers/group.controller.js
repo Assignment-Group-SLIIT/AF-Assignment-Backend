@@ -88,9 +88,9 @@ const getOneGroup = async (req, res) => {
 const updateGroup = async (req, res) => {
 
     const groupId = req.params.id;
-    const leaderEmail = req.body?.student?.leader?.email
-    const leaderName = req.body?.student?.leader?.name;
-    const msg = "Your team evaluations will be conducted by Panel " + req.body.panelNo + ". So Please refer to the published time tables ";
+    // const leaderEmail = req.body?.student?.leader?.email
+    // const leaderName = req.body?.student?.leader?.name;
+    // const msg = "Your team evaluations will be conducted by Panel " + req.body.panelNo + ". So Please refer to the published time tables ";
 
     // console.log(leaderEmail)
 
@@ -109,7 +109,7 @@ const updateGroup = async (req, res) => {
         if (response) {
 
             try {
-                sendEmail(leaderEmail, leaderName, msg)
+                // sendEmail(leaderEmail, leaderName, msg)
                 if (response) {
                     return res.status(200).send({ message: 'Successfully updated group request' });
                 } else {
@@ -142,10 +142,30 @@ const updateMemberAvailability = async (studentId, groupId) => {
 }
 
 
+const sendAcceptRejectEmail = async (req, res) => {
+
+    const email = req.body.email;
+    const name = req.body.name;
+    const message = req.body.message;
+
+
+    try {
+        if (sendEmail(email, name, message)) {
+            return res.status(200).send({ status: "Email sent successfully" });
+        }
+
+
+    } catch (err) {
+        return res.status(500).send({ message: "Internal Server Error" });
+    }
+}
+
+
 module.exports = {
     createGroup,
     getAllGroup,
     removeGroup,
     getOneGroup,
-    updateGroup
+    updateGroup,
+    sendAcceptRejectEmail
 }
