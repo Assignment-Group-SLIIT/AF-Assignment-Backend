@@ -110,8 +110,23 @@ const sendPresentationEmail = async (req, res) => {
     } catch (err) {
         return res.status(500).send({ message: "Internal Server Error" });
     }
+}
 
 
+const getAllAssignmentForGroup = async (req, res) => {
+    const groupId = req.params.id;
+    // console.log(groupId)
+    try {
+        const response = await Assignment.find({ groupId: groupId });
+        if (response) {
+            return res.status(200).send(response);
+        } else {
+            return res.status(404).send({ message: 'No result found' });
+        }
+
+    } catch (error) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
 }
 
 module.exports = {
@@ -119,6 +134,7 @@ module.exports = {
     getAllAssignment,
     updateAssignment,
     deleteAssignment,
-    sendPresentationEmail
+    sendPresentationEmail,
+    getAllAssignmentForGroup
 }
 
