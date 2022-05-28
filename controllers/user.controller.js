@@ -158,6 +158,7 @@ const updateUser = async (req, res) => {
 
     const password = user.password;
 
+
     const newUser = {
         fullname: req.body.fullname,
         studentId: req.body.studentId,
@@ -203,6 +204,22 @@ const deleteUser = async (req, res) => {
 
 }
 
+const searchName = async (req, res) => {
+    const name = req.params.name;
+
+    try {
+        const user = await User.findOne({ fullname: name });
+        if (user) {
+            return res.json(user)
+        } else {
+            return res.status(404).send({ message: 'Such user does not exists recheck the email' });
+        }
+
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+
+}
 
 module.exports = {
     register,
@@ -211,5 +228,6 @@ module.exports = {
     getOneUser,
     updateUserPassword,
     updateUser,
-    deleteUser
+    deleteUser,
+    searchName
 }
