@@ -218,7 +218,8 @@ const getAllUsersChat = async (req, res, next) => {
     } catch (ex) {
         next(ex);
     }
-};
+  };
+
 const searchName = async (req, res) => {
     const name = req.params.name;
 
@@ -277,6 +278,24 @@ const updateCoSupervisor = async (req, res) => {
 }
 
 
+const getOneUserName = async (req, res) => {
+    const email = req
+
+    try {
+        let user = await User.findOne({
+            email: email
+        });
+        if (user) {
+            return user
+        } else {
+            return res.status(404).send({ message: 'No such user found' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+}
+
+
 module.exports = {
     register,
     login,
@@ -288,6 +307,7 @@ module.exports = {
     getAllUsersChat,
     searchName,
     updateSupervisor,
-    updateCoSupervisor
+    updateCoSupervisor,
+    getOneUserName
 
 }
