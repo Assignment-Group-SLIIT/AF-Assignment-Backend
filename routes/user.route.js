@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 
 let userController = require('../controllers/user.controller')
@@ -11,6 +12,7 @@ router.get('/:email', userController.getOneUser);
 router.put('/:email', userController.updateUser);
 router.put('/:email/:pwd', userController.updateUserPassword);
 router.delete('/:email', userController.deleteUser);
+router.get('/allusers/:id/:groupId',userController.getAllUsersChat)
 
 
 module.exports = router;

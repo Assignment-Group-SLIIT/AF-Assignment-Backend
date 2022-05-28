@@ -204,6 +204,21 @@ const deleteUser = async (req, res) => {
 
 }
 
+const getAllUsersChat = async (req, res, next) => {
+    const groupId = req.params.groupId
+    try {
+      const users = await User.find({$and:[{ _id: { $ne: req.params.id } } , {groupId}]}).select([
+        "email",
+        "fullname",
+        "_id",
+        "groupId"
+      ]);
+      return res.json(users);
+    } catch (ex) {
+      next(ex);
+    }
+  };
+
 module.exports = {
     register,
     login,
@@ -212,4 +227,5 @@ module.exports = {
     updateUserPassword,
     updateUser,
     deleteUser,
+    getAllUsersChat
 }
