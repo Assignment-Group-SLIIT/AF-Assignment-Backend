@@ -1,6 +1,6 @@
 const ProjectProposal = require('../models/projectProposal.model');
 let sendEmail = require('../controllers/thirdpartyapis');
-const { getOneUser } = require('./user.controller');
+const { getOneUserName } = require('./user.controller');
 
 const createProjectProposal = async (req, res) => {
 
@@ -46,8 +46,8 @@ const updateProjectProposal = async (req, res) => {
 
     const Id = req.params.id;
     const emailLeader = req.body?.leaderEmail;
-    //const getLeaderName =await getOneUser(emailLeader);
-    //console.log(getLeaderName)
+    const getLeaderName = await getOneUserName(emailLeader);
+    console.log("leader name", getLeaderName.fullname)
     const msg = " Your team project proposal is accespted. So Please refer to the published time tables ";
 
     const {
@@ -71,7 +71,7 @@ const updateProjectProposal = async (req, res) => {
         if (response) {
 
             try {
-                sendEmail(emailLeader, msg)
+                sendEmail(emailLeader, getLeaderName.fullname, msg)
                 if (response) {
                     return res.status(200).send({ message: 'Successfully updated project proposal' });
                 } else {
