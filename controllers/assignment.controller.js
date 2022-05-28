@@ -2,6 +2,7 @@ const Assignment = require('../models/assignment.model');
 
 
 const createAssignment = async (req, res) => {
+    console.log("create")
 
     const {
         groupId,
@@ -95,12 +96,11 @@ const deleteAssignment = async (req, res) => {
 }
 
 const updateMarks = async (req, res) => {
-    let marks = req.params.assignemnet.marks;
-    let groupId = req.params.assignemnet.groupId;
+    console.log("req>>", req.body)
     try {
-        let response = await Submission.findOneAndUpdate(
-            { "groupId": groupId },
-            { $set: { "marks": marks } }
+        let response = await Assignment.findOneAndUpdate(
+            { "groupId": req?.body?.groupId },
+            { $set: { "marks": req?.body?.marks, "evaluationStatus": "Completed" } }
         );
         if (response) {
             return res.json(response);
