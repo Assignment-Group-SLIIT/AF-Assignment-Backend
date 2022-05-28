@@ -94,10 +94,25 @@ const deleteAssignment = async (req, res) => {
     return res.status(400).send({ message: "Invalid Request" });
 }
 
+const updateMarks = async (req, res) => {
+    let type = req.params.marks;
+    try {
+        let response = await Submission.findOneAndUpdate({ marks: marks });
+        if (response) {
+            return res.json(response);
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
 module.exports = {
     createAssignment,
     getAllAssignment,
     updateAssignment,
-    deleteAssignment
+    deleteAssignment,
+    updateMarks
 }
 
