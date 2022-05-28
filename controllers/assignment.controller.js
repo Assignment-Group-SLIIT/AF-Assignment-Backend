@@ -1,4 +1,5 @@
 const Assignment = require('../models/assignment.model');
+const sendEmail = require('./thirdpartyapis');
 
 const createAssignment = async (req, res) => {
 
@@ -92,10 +93,32 @@ const deleteAssignment = async (req, res) => {
     return res.status(400).send({ message: "Invalid Request" });
 }
 
+const sendPresentationEmail = async (req, res) => {
+
+    const email = req.body.email;
+    const name = req.body.name;
+    const message = req.body.message;
+
+    // console.log(email, name, message)
+
+    try {
+        if (sendEmail(email, name, message)) {
+            return res.status(200).send({ status: "Presentation Email sent successfully" });
+        }
+
+
+    } catch (err) {
+        return res.status(500).send({ message: "Internal Server Error" });
+    }
+
+
+}
+
 module.exports = {
     createAssignment,
     getAllAssignment,
     updateAssignment,
-    deleteAssignment
+    deleteAssignment,
+    sendPresentationEmail
 }
 
