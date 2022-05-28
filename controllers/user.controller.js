@@ -205,22 +205,20 @@ const deleteUser = async (req, res) => {
 
 }
 
-<<<<<<< HEAD
 const getAllUsersChat = async (req, res, next) => {
     const groupId = req.params.groupId
     try {
-      const users = await User.find({$and:[{ _id: { $ne: req.params.id } } , {groupId}]}).select([
-        "email",
-        "fullname",
-        "_id",
-        "groupId"
-      ]);
-      return res.json(users);
+        const users = await User.find({ $and: [{ _id: { $ne: req.params.id } }, { groupId }] }).select([
+            "email",
+            "fullname",
+            "_id",
+            "groupId"
+        ]);
+        return res.json(users);
     } catch (ex) {
-      next(ex);
+        next(ex);
     }
-  };
-=======
+};
 const searchName = async (req, res) => {
     const name = req.params.name;
 
@@ -237,7 +235,6 @@ const searchName = async (req, res) => {
     }
 
 }
->>>>>>> d8c4d5b1e801351ac0f420d032ff65a1424c6347
 
 module.exports = {
     register,
@@ -247,9 +244,6 @@ module.exports = {
     updateUserPassword,
     updateUser,
     deleteUser,
-<<<<<<< HEAD
-    getAllUsersChat
-=======
+    getAllUsersChat,
     searchName
->>>>>>> d8c4d5b1e801351ac0f420d032ff65a1424c6347
 }
