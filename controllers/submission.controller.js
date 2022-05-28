@@ -106,4 +106,19 @@ const getOneSubmission = async (req, res) => {
 }
 
 
-module.exports = { addSubmission, getAllSubmissions, updateSubmission, deleteSubmission, getOneSubmission }
+
+const getOneSubmissionByType = async (req, res) => {
+    let type = req.params.type;
+    try {
+        let response = await Submission.findOne({ submissionType: type });
+        if (response) {
+            return res.json(response);
+        } else {
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
+module.exports = { addSubmission, getAllSubmissions, updateSubmission, deleteSubmission, getOneSubmission, getOneSubmissionByType }

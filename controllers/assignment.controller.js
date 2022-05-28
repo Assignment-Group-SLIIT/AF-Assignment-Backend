@@ -1,5 +1,6 @@
 const Assignment = require('../models/assignment.model');
 
+
 const createAssignment = async (req, res) => {
 
     const {
@@ -34,6 +35,7 @@ const createAssignment = async (req, res) => {
 }
 
 const getAllAssignment = async (req, res) => {
+
     try {
         const response = await Assignment.find();
         return res.status(200).send({ data: response });
