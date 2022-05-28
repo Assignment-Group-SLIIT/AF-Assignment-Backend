@@ -1,6 +1,8 @@
 const ProjectProposal = require('../models/projectProposal.model');
 let sendEmail = require('../controllers/thirdpartyapis');
 const { getOneUserName } = require('./user.controller');
+const Group = require('../models/group.model');
+const User = require('../models/user.model');
 
 const createProjectProposal = async (req, res) => {
 
@@ -107,7 +109,27 @@ const deleteProjectProposal = async (req, res) => {
 
     if (Id) {
         try {
-            await ProjectProposal.findOneAndDelete({ groupId: Id })
+            try {
+                await Group.findOneAndUpdate(
+                    { "groupId": Id },
+                    { $set: { "supervisor": "", "coSupervisor": "" } }
+                )
+            } catch (error) {
+                return res.status(500).send({ message: "Error while updating group" });
+            }
+            try {
+                await User.findOneAndUpdate(
+                    { "groupId": Id },
+                    { $set: { "supervisor": "", "coSupervisor": "" } }
+                );
+            } catch (error) {
+                return res.status(500).send({ message: "Error while updating user" });
+            }
+            try {
+                await ProjectProposal.findOneAndDelete({ groupId: Id })
+            } catch (error) {
+                return res.status(500).send({ message: "Error while updating supervisor" });
+            }
             return res.status(200).send({ message: "ProjectProposal deleted successfully" });
         } catch {
             return res.status(500).send({ message: "Internal Server Error" });
