@@ -208,18 +208,18 @@ const deleteUser = async (req, res) => {
 const getAllUsersChat = async (req, res, next) => {
     const groupId = req.params.groupId
     try {
-      const users = await User.find({$and:[{ _id: { $ne: req.params.id } } , {groupId}]}).select([
-        "email",
-        "fullname",
-        "_id",
-        "groupId"
-      ]);
-      return res.json(users);
+        const users = await User.find({ $and: [{ _id: { $ne: req.params.id } }, { groupId }] }).select([
+            "email",
+            "fullname",
+            "_id",
+            "groupId"
+        ]);
+        return res.json(users);
     } catch (ex) {
-      next(ex);
+        next(ex);
     }
   };
-  
+
 const searchName = async (req, res) => {
     const name = req.params.name;
 
@@ -237,6 +237,65 @@ const searchName = async (req, res) => {
 
 }
 
+const updateSupervisor = async (req, res) => {
+
+    const supervisor = req.params.supervisor
+    const fullname = req.params.name
+
+    try {
+        const response = await User.findOneAndUpdate(
+            { fullname: fullname },
+            { $set: { "supervisor": supervisor } }
+        )
+        console.log(response)
+        if (response) {
+            // return res.status(200).send({ message: 'Updated user' });
+            return res.json(response)
+        }
+    } catch (err) {
+        console.log("error while updating user>>", err)
+    }
+
+}
+
+const updateCoSupervisor = async (req, res) => {
+
+    const cosupervisor = req.params.cosupervisor
+    const fullname = req.params.name
+    try {
+        const response = await User.findOneAndUpdate(
+            { fullname: fullname },
+            { $set: { "cosupervisor": cosupervisor } }
+        )
+        if (response) {
+            return res.status(200).send({ message: 'Updated user' });
+        }
+    } catch (err) {
+        console.log("error while updating user>>", err)
+    }
+
+
+}
+
+
+const getOneUserName = async (req, res) => {
+    const email = req
+
+    try {
+        let user = await User.findOne({
+            email: email
+        });
+        if (user) {
+            return user
+        } else {
+            return res.status(404).send({ message: 'No such user found' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+}
+
+
 module.exports = {
     register,
     login,
@@ -246,5 +305,9 @@ module.exports = {
     updateUser,
     deleteUser,
     getAllUsersChat,
-    searchName
+    searchName,
+    updateSupervisor,
+    updateCoSupervisor,
+    getOneUserName
+
 }
