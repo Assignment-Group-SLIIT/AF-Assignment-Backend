@@ -159,6 +159,7 @@ const updateUser = async (req, res) => {
 
     const password = user.password;
 
+
     const newUser = {
         fullname: req.body.fullname,
         studentId: req.body.studentId,
@@ -204,6 +205,7 @@ const deleteUser = async (req, res) => {
 
 }
 
+<<<<<<< HEAD
 const getAllUsersChat = async (req, res, next) => {
     const groupId = req.params.groupId
     try {
@@ -218,6 +220,24 @@ const getAllUsersChat = async (req, res, next) => {
       next(ex);
     }
   };
+=======
+const searchName = async (req, res) => {
+    const name = req.params.name;
+
+    try {
+        const user = await User.findOne({ fullname: name });
+        if (user) {
+            return res.json(user)
+        } else {
+            return res.status(404).send({ message: 'Such user does not exists recheck the email' });
+        }
+
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+
+}
+>>>>>>> d8c4d5b1e801351ac0f420d032ff65a1424c6347
 
 module.exports = {
     register,
@@ -227,5 +247,9 @@ module.exports = {
     updateUserPassword,
     updateUser,
     deleteUser,
+<<<<<<< HEAD
     getAllUsersChat
+=======
+    searchName
+>>>>>>> d8c4d5b1e801351ac0f420d032ff65a1424c6347
 }
