@@ -71,10 +71,11 @@ const updateProjectProposal = async (req, res) => {
     try {
         const response = await ProjectProposal.findOneAndUpdate({ groupId: Id }, ProjectProposalPayload)
         if (response) {
-
             try {
-                sendEmail(emailLeader, getLeaderName.fullname, msg)
-                if (response) {
+                await updateProjectProposalStatus(groupId)
+
+                const res = sendEmail(emailLeader, getLeaderName.fullname, msg)
+                if (res) {
                     return res.status(200).send({ message: 'Successfully updated project proposal' });
                 } else {
                     return res.status(500).send({ message: 'Internal server error with sending email' });
@@ -136,6 +137,19 @@ const deleteProjectProposal = async (req, res) => {
         }
     }
     return res.status(400).send({ message: "Invalid Request" });
+}
+
+//to update group to set proposal accepted or not
+const updateProjectProposalStatus = async (groupId) => {
+    try {
+        const res = await Group.findOneAndUpdate(
+            { "groupId": groupId },
+            { $set: { "isProposalAccepted": true } }
+        )
+    } catch (err) {
+        console.log("error while updating user>>", err)
+    }
+
 }
 
 module.exports = {

@@ -34,6 +34,11 @@ const groupSchema = new Schema({
     panelNo: {
         type: String,
         required: false,
+    },
+
+    isProposalAccepted: {
+        type: Boolean,
+        required: false,
     }
 
 })
