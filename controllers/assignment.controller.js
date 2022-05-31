@@ -3,8 +3,6 @@ const sendEmail = require('./thirdpartyapis');
 
 
 const createAssignment = async (req, res) => {
-    console.log("create")
-
     const {
         groupId,
         submissionId,

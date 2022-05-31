@@ -49,7 +49,6 @@ const updateProjectProposal = async (req, res) => {
     const Id = req.params.id;
     const emailLeader = req.body?.leaderEmail;
     const getLeaderName = await getOneUserName(emailLeader);
-    console.log("leader name", getLeaderName.fullname)
     const msg = " Your team project proposal is accespted. So Please refer to the published time tables ";
 
     const {
