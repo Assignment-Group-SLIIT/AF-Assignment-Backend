@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 let assignmentController = require('../controllers/assignment.controller');
-console.log("route")
 router.post('/', assignmentController.createAssignment);
 router.get('/', assignmentController.getAllAssignment);
 router.get('/:id', assignmentController.getAllAssignmentForGroup);
