@@ -1,4 +1,5 @@
 const Group = require('../models/group.model');
+const User = require('../models/user.model');
 let sendEmail = require('../controllers/thirdpartyapis')
 
 //register group with supervisors
