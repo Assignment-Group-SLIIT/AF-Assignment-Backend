@@ -45,10 +45,13 @@ const getAllProjectProposal = async (req, res) => {
 }
 
 const updateProjectProposal = async (req, res) => {
-
+    console.log("req>>", req.body?.leaderEmail)
     const Id = req.params.id;
     const emailLeader = req.body?.leaderEmail;
     const getLeaderName = await getOneUserName(emailLeader);
+    if (!getLeaderName) {
+        return res.status(400).send({ message: 'User not available' })
+    }
     const msg = " Your team project proposal is accespted. So Please refer to the published time tables ";
 
     const {

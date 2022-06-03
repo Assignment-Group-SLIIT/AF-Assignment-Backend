@@ -112,7 +112,6 @@ const updateMarks = async (req, res) => {
 }
 
 const sendPresentationEmail = async (req, res) => {
-
     const email = req.body.email;
     const name = req.body.name;
     const message = req.body.message;

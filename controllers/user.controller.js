@@ -218,7 +218,7 @@ const getAllUsersChat = async (req, res, next) => {
     } catch (ex) {
         next(ex);
     }
-  };
+};
 
 const searchName = async (req, res) => {
     const name = req.params.name;
@@ -279,13 +279,16 @@ const updateCoSupervisor = async (req, res) => {
 
 
 const getOneUserName = async (req, res) => {
+    console.log("req user", req)
     const email = req
+
 
     try {
         let user = await User.findOne({
             email: email
         });
         if (user) {
+            console.log("user>>>", user)
             return user
         } else {
             return res.status(404).send({ message: 'No such user found' });
