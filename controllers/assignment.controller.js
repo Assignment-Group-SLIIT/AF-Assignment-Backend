@@ -95,10 +95,10 @@ const deleteAssignment = async (req, res) => {
 }
 
 const updateMarks = async (req, res) => {
-    console.log("req>>", req.body)
+    const submissionId = req.params.id;
     try {
         let response = await Assignment.findOneAndUpdate(
-            { "groupId": req?.body?.groupId },
+            { "submissionId": submissionId },
             { $set: { "marks": req?.body?.marks, "evaluationStatus": "Completed" } }
         );
         if (response) {
